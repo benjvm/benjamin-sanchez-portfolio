@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -16,9 +16,13 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/benjamin-hero.jpg";
-import internHubImage from "@/assets/internhub-project.jpg";
-import wtfoodImage from "@/assets/wtfood-project.jpg";
+import heroAsset from "@/assets/benjamin-hero.jpg.asset.json";
+import internHubAsset from "@/assets/internhub-project.jpg.asset.json";
+import wtfoodAsset from "@/assets/wtfood-project.jpg.asset.json";
+
+const heroImage = heroAsset.url;
+const internHubImage = internHubAsset.url;
+const wtfoodImage = wtfoodAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -131,7 +135,7 @@ function Portfolio() {
   );
 }
 
-function Section({ id, number, label, children }: { id: string; number: string; label: string; children: React.ReactNode }) {
+function Section({ id, number, label, children }: { id: string; number: string; label: string; children: ReactNode }) {
   return <section id={id} className="scroll-mt-20 py-24 md:py-36"><div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-16"><SectionHeading number={number} label={label} /><div className="mt-16">{children}</div></div></section>;
 }
 
