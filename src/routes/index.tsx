@@ -20,11 +20,9 @@ import {
 import { SiHtml5, SiCss, SiJavascript, SiReact, SiPhp, SiPython, SiNodedotjs, SiMysql, SiFirebase, SiGit, SiGithub, SiDocker, SiSolidity, SiEthereum } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import heroAsset from "@/assets/benjamin-hero.jpg.asset.json";
 import internHubAsset from "@/assets/internhub-project.jpg.asset.json";
 import wtfoodAsset from "@/assets/wtfood-project.jpg.asset.json";
 
-const heroImage = heroAsset.url;
 const internHubImage = internHubAsset.url;
 const wtfoodImage = wtfoodAsset.url;
 
@@ -35,8 +33,6 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Explore Benjamin Sánchez's web development portfolio, projects, skills, and journey toward Blockchain and Web3." },
       { property: "og:title", content: "Benjamin Sánchez — Junior Web Developer" },
       { property: "og:description", content: "Practical web products, thoughtful code, and a growing focus on Blockchain and Web3." },
-      { property: "og:image", content: heroImage },
-      { name: "twitter:image", content: heroImage },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -105,8 +101,14 @@ function Portfolio() {
         </nav>
       </header>
 
-      <section id="top" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink px-5 text-center">
-        <img src={heroImage} alt="Monochrome futuristic landscape beneath a star-filled sky" width={1920} height={900} fetchPriority="high" className="hero-image absolute inset-0 h-full w-full object-cover" />
+      <section id="top" className="hero-console relative flex min-h-screen items-center justify-center overflow-hidden px-5 text-center">
+        <div className="hero-particles absolute inset-0" aria-hidden="true" />
+        <div className="hero-waves absolute inset-0" aria-hidden="true">
+          <span className="hero-wave hero-wave-one" />
+          <span className="hero-wave hero-wave-two" />
+          <span className="hero-wave hero-wave-three" />
+          <span className="hero-wave hero-wave-four" />
+        </div>
         <div className="hero-shade absolute inset-0" />
         <div className="relative z-10 mx-auto max-w-7xl pt-16 reveal">
           <p className="mb-6 font-mono text-[10px] uppercase text-primary-foreground/60 md:text-xs">Portfolio / 2026 — Madrid, ES</p>
