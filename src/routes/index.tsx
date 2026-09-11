@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode, type ComponentType } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -9,12 +9,16 @@ import {
   Github,
   Instagram,
   Linkedin,
-  Menu,
+  Download,
   Network,
   Send,
   Terminal,
-  X,
+  FileCode2,
+  Waypoints,
+  Globe,
 } from "lucide-react";
+import { SiHtml5, SiCss, SiJavascript, SiReact, SiPhp, SiPython, SiNodedotjs, SiMysql, SiFirebase, SiGit, SiGithub, SiDocker, SiSolidity, SiEthereum } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import heroAsset from "@/assets/benjamin-hero.jpg.asset.json";
 import internHubAsset from "@/assets/internhub-project.jpg.asset.json";
@@ -31,6 +35,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Explore Benjamin Sánchez's web development portfolio, projects, skills, and journey toward Blockchain and Web3." },
       { property: "og:title", content: "Benjamin Sánchez — Junior Web Developer" },
       { property: "og:description", content: "Practical web products, thoughtful code, and a growing focus on Blockchain and Web3." },
+      { property: "og:image", content: heroImage },
+      { name: "twitter:image", content: heroImage },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -46,6 +52,14 @@ const skillGroups = [
   { title: "Tools & Technologies", icon: Blocks, skills: ["Git", "GitHub", "REST APIs", "Docker"] },
   { title: "Learning now", icon: Network, skills: ["Blockchain", "Web3", "Solidity", "Ethereum", "Smart Contracts"] },
 ];
+
+const skillIcons: Record<string, ComponentType<{ className?: string }>> = {
+  HTML: SiHtml5, CSS: SiCss, JavaScript: SiJavascript, React: SiReact,
+  Java: FaJava, PHP: SiPhp, Python: SiPython, "Node.js": SiNodedotjs,
+  MySQL: SiMysql, Firebase: SiFirebase, Git: SiGit, GitHub: SiGithub,
+  "REST APIs": Waypoints, Docker: SiDocker, Blockchain: Blocks, Web3: Globe,
+  Solidity: SiSolidity, Ethereum: SiEthereum, "Smart Contracts": FileCode2,
+};
 
 const projects = [
   {
@@ -67,7 +81,6 @@ const projects = [
 ];
 
 function Portfolio() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [sent, setSent] = useState(false);
 
@@ -86,16 +99,10 @@ function Portfolio() {
 
   return (
     <main>
-      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled || menuOpen ? "border-b border-primary-foreground/15 bg-ink/90 backdrop-blur-xl" : "bg-transparent"}`}>
-        <nav aria-label="Main navigation" className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-10 lg:px-16">
-          <a href="#top" className="font-display text-sm font-bold text-primary-foreground" aria-label="Benjamin Sánchez, back to top">BS<span className="text-steel">/26</span></a>
-          <div className="hidden items-center gap-9 md:flex">
-            {navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} className="text-xs font-semibold uppercase text-primary-foreground/70 transition-colors hover:text-primary-foreground">{item}</a>)}
-            <Button asChild variant="portfolioOutline" className="border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-ink"><a href="/benjamin-sanchez-cv.pdf" download>Download my CV</a></Button>
-          </div>
-          <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</Button>
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "border-b border-primary-foreground/15 bg-ink/90 backdrop-blur-xl" : "bg-transparent"}`}>
+        <nav aria-label="Main navigation" className="mx-auto flex h-20 max-w-[1440px] items-center justify-center gap-6 px-5 sm:gap-10">
+          {navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} className="text-xs font-medium text-primary-foreground/70 transition-colors hover:text-primary-foreground sm:text-sm">{item}</a>)}
         </nav>
-        {menuOpen && <div className="border-t border-primary-foreground/15 bg-ink px-5 py-6 md:hidden">{navItems.map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="block border-b border-primary-foreground/10 py-4 font-display text-xl text-primary-foreground">{item}</a>)}<Button asChild variant="portfolioOutline" className="mt-6 w-full border-primary-foreground/40 text-primary-foreground"><a href="/benjamin-sanchez-cv.pdf" download>Download my CV</a></Button></div>}
       </header>
 
       <section id="top" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink px-5 text-center">
@@ -106,6 +113,7 @@ function Portfolio() {
           <h1 className="title-glow font-display text-4xl font-bold uppercase leading-[1.05] text-primary-foreground sm:text-6xl md:text-8xl lg:text-9xl">Benjamin<br className="sm:hidden" /> Sánchez</h1>
           <div className="mx-auto mt-7 h-px w-24 bg-primary-foreground/50" />
           <p className="mt-6 text-sm font-medium text-primary-foreground/75 md:text-lg">Web Developer <span className="mx-2 text-primary-foreground/35">·</span> Blockchain Enthusiast</p>
+          <Button asChild variant="portfolioOutline" className="mt-8 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground hover:text-ink"><a href="/benjamin-sanchez-cv.pdf" download><Download size={16} />Download my CV</a></Button>
         </div>
         <a href="#about" className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[9px] uppercase text-primary-foreground/55 transition-colors hover:text-primary-foreground" aria-label="Scroll to About"><span>Explore</span><ArrowDown size={16} className="animate-bounce" /></a>
       </section>
@@ -117,7 +125,7 @@ function Portfolio() {
         </div>
       </Section>
 
-      <section id="skills" className="bg-ink py-24 text-primary-foreground md:py-36"><div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-16"><SectionHeading number="02" label="Skills" dark /><div className="mt-16 divide-y divide-primary-foreground/15 border-y border-primary-foreground/15">{skillGroups.map(({ title, icon: Icon, skills }, index) => <div key={title} className="group grid gap-5 py-7 md:grid-cols-[80px_1fr_2fr] md:items-center"><span className="font-mono text-xs text-primary-foreground/35">0{index + 1}</span><div className="flex items-center gap-3"><Icon size={18} strokeWidth={1.5}/><h3 className="font-display text-sm uppercase">{title}</h3></div><div className="flex flex-wrap gap-x-5 gap-y-2 md:justify-end">{skills.map((skill) => <span key={skill} className="text-sm text-primary-foreground/60 transition-colors group-hover:text-primary-foreground md:text-base">{skill}</span>)}</div></div>)}</div></div></section>
+      <section id="skills" className="bg-ink py-24 text-primary-foreground md:py-36"><div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-16"><SectionHeading number="02" label="Skills" dark /><div className="mt-16 divide-y divide-primary-foreground/15 border-y border-primary-foreground/15">{skillGroups.map(({ title, icon: Icon, skills }, index) => <div key={title} className="group grid gap-5 py-7 md:grid-cols-[80px_1fr_2fr] md:items-center"><span className="font-mono text-xs text-primary-foreground/35">0{index + 1}</span><div className="flex items-center gap-3"><Icon size={18} strokeWidth={1.5}/><h3 className="font-display text-sm uppercase">{title}</h3></div><div className="flex flex-wrap gap-x-5 gap-y-2 md:justify-end">{skills.map((skill) => { const Icon = skillIcons[skill]; return <span key={skill} tabIndex={0} aria-label={skill} className="group/skill relative flex size-12 items-center justify-center text-primary-foreground/65 outline-offset-4 transition-colors hover:text-primary-foreground focus:text-primary-foreground">{Icon && <Icon className="size-8" />}<span role="tooltip" className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap border border-primary-foreground/20 bg-ink px-2 py-1 text-xs text-primary-foreground opacity-0 transition-opacity group-hover/skill:opacity-100 group-focus/skill:opacity-100">{skill}</span></span>; })}</div></div>)}</div></div></section>
 
       <Section id="projects" number="03" label="Selected projects">
         <div className="space-y-24 md:space-y-36">{projects.map((project, i) => <article key={project.name} className={`group grid gap-8 lg:grid-cols-2 lg:items-center ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}><div className="overflow-hidden bg-secondary"><img src={project.image} alt={project.alt} width={1408} height={912} loading="lazy" className="aspect-[16/10] w-full object-cover grayscale transition-transform duration-700 group-hover:scale-[1.025]" /></div><div className="lg:px-10"><span className="font-mono text-xs text-muted-foreground">PROJECT / {project.index}</span><h3 className="mt-4 font-display text-4xl font-semibold md:text-6xl">{project.name}</h3><p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground md:text-lg">{project.description}</p><div className="mt-7 flex flex-wrap gap-2">{project.tech.map((tech) => <span key={tech} className="border border-border px-3 py-1.5 font-mono text-[10px] uppercase">{tech}</span>)}</div><Button asChild variant="portfolio" className="mt-9"><a href="https://github.com/" target="_blank" rel="noreferrer"><Github/>View on GitHub<ArrowUpRight/></a></Button></div></article>)}</div>
