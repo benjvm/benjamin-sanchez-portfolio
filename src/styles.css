@@ -102,8 +102,15 @@
 
 .hero-particles {
   opacity: 0.34;
-  background-image: radial-gradient(circle, var(--primary-foreground) 0 1px, transparent 1.5px);
-  background-size: 92px 78px;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary-foreground) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 78% 64%, var(--primary-foreground) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 44% 88%, var(--primary-foreground) 0 0.9px, transparent 1.5px),
+    radial-gradient(circle at 88% 22%, var(--primary-foreground) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 30% 50%, var(--primary-foreground) 0 1.1px, transparent 1.7px),
+    radial-gradient(circle at 66% 36%, var(--primary-foreground) 0 0.7px, transparent 1.3px);
+  background-size: 173px 151px, 227px 193px, 311px 269px, 197px 167px, 149px 137px, 283px 241px;
+  background-position: 0 0, 40px 55px, 90px 20px, 130px 110px, 25px 80px, 160px 35px;
   mask-image: linear-gradient(to bottom, transparent, var(--ink) 24%, var(--ink) 72%, transparent);
 }
 
