@@ -101,9 +101,22 @@
 }
 
 .hero-particles {
-  opacity: 0.34;
-  background-image: radial-gradient(circle, var(--primary-foreground) 0 1px, transparent 1.5px);
-  background-size: 92px 78px;
+  opacity: 0.4;
+  background-image:
+    radial-gradient(circle at 8% 14%, var(--primary-foreground) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 27% 42%, var(--primary-foreground) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 46% 8%, var(--primary-foreground) 0 1.1px, transparent 1.7px),
+    radial-gradient(circle at 63% 67%, var(--primary-foreground) 0 0.9px, transparent 1.5px),
+    radial-gradient(circle at 81% 33%, var(--primary-foreground) 0 0.7px, transparent 1.3px),
+    radial-gradient(circle at 91% 79%, var(--primary-foreground) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 15% 88%, var(--primary-foreground) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 38% 71%, var(--primary-foreground) 0 0.6px, transparent 1.2px),
+    radial-gradient(circle at 54% 49%, var(--primary-foreground) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 72% 12%, var(--primary-foreground) 0 0.7px, transparent 1.3px),
+    radial-gradient(circle at 33% 24%, var(--primary-foreground) 0 0.9px, transparent 1.5px),
+    radial-gradient(circle at 6% 58%, var(--primary-foreground) 0 0.5px, transparent 1.1px);
+  background-size: 420px 420px;
+  background-position: 0 0;
   mask-image: linear-gradient(to bottom, transparent, var(--ink) 24%, var(--ink) 72%, transparent);
 }
 
@@ -148,7 +161,7 @@
 }
 
 @keyframes particles-drift {
-  to { background-position: 92px -78px; }
+  to { background-position: 420px -420px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
