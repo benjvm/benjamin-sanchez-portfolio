@@ -161,7 +161,7 @@
 }
 
 @keyframes particles-drift {
-  to { background-position: 173px -151px, 267px -138px, 380px -249px, 327px -57px, 174px -217px, 443px -206px; }
+  to { background-position: 420px -420px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
