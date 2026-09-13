@@ -18,6 +18,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         portfolio: "rounded-sm bg-primary text-primary-foreground uppercase tracking-[0.08em] hover:bg-foreground/85",
         portfolioOutline: "rounded-sm border border-border bg-transparent uppercase tracking-[0.08em] hover:bg-foreground hover:text-background",
+        signal: "rounded-sm border border-signal bg-signal text-primary-foreground uppercase font-mono text-xs hover:bg-transparent hover:text-signal",
       },
       size: {
         default: "h-9 px-4 py-2",
