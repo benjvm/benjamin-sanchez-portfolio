@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "75e7c006-171a-475d-94f8-c5e9e6ec53d0",
-  "project_id": "4b621bca-4a1a-4666-8953-4494711f1c63",
-  "url": "/__l5e/assets-v1/75e7c006-171a-475d-94f8-c5e9e6ec53d0/benjamin-hero.jpg",
-  "r2_key": "a/v1/4b621bca-4a1a-4666-8953-4494711f1c63/75e7c006-171a-475d-94f8-c5e9e6ec53d0/benjamin-hero.jpg",
-  "original_filename": "benjamin-hero.jpg",
-  "size": 179110,
   "content_type": "image/jpeg",
-  "created_at": "2026-09-11T23:33:48Z"
+  "created_at": "2026-09-11T23:33:48Z",
+  "original_filename": "benjamin-hero.jpg",
+  "project_id": "b0b22c6e-a4ed-4917-a4cd-d4059b2d5800",
+  "r2_key": "a/v1/b0b22c6e-a4ed-4917-a4cd-d4059b2d5800/75e7c006-171a-475d-94f8-c5e9e6ec53d0/benjamin-hero.jpg",
+  "size": 179110,
+  "url": "/__l5e/assets-v1/75e7c006-171a-475d-94f8-c5e9e6ec53d0/benjamin-hero.jpg",
+  "version": 1
 }
