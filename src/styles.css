@@ -110,8 +110,25 @@
   white-space: nowrap;
   border-right: .055em solid transparent;
 }
-.typing-line-first { animation: type-first 1.15s steps(8, end) .25s forwards; }
-.typing-line-second { animation: type-second 1.05s steps(7, end) 1.5s forwards, caret-blink .7s step-end 1.5s 5; }
+
+.typing-line-first {
+  animation: type-first 1.5s steps(8, end) .25s forwards;
+}
+
+.typing-line-second {
+  animation:
+    type-first 1.5s steps(8, end) 1.65s forwards,
+    blink-caret 1.2s step-end infinite 3.45s;
+}
+
+@keyframes blink-caret {
+  0%, 49% {
+    border-right-color: var(--signal);
+  }
+  50%, 100% {
+    border-right-color: transparent;
+  }
+}
 .eyebrow { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; color: var(--signal); }
 .status-dot { display: inline-block; width: .45rem; height: .45rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 12px color-mix(in oklab, var(--signal) 72%, transparent); animation: status-pulse 2s ease-in-out infinite; }
 
