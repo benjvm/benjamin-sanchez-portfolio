@@ -131,7 +131,7 @@ function Portfolio() {
       <section id="top" onPointerMove={moveHero} onPointerLeave={resetHero} className="cyber-grid hero-depth relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10">
         <div className="node-field absolute inset-0" aria-hidden="true"><span className="node node-a"/><span className="node node-b"/><span className="node node-c"/><span className="node node-d"/><i className="chain-line chain-one"/><i className="chain-line chain-two"/></div>
         <div className="hero-depth-copy relative z-10 mx-auto w-full max-w-[1480px]">
-          <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="status-dot"/><span>System online</span><span className="text-border">/</span><span>Madrid, ES</span><span className="text-border">/</span><span>2026</span></div>
+          <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="status-dot"/><span>System online</span><span className="text-border">/</span><span>Valencia, ES</span><span className="text-border">/</span><span>2026</span></div>
           <p className="mb-4 font-mono text-xs uppercase text-signal">Web Developer · Blockchain Enthusiast</p>
           <h1 aria-label="Benjamin Sánchez" className="typing-name max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]"><span className="typing-line typing-line-first" aria-hidden="true">BENJAMIN</span><span className="typing-line typing-line-second outline-type" aria-hidden="true">SÁNCHEZ</span></h1>
           <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
