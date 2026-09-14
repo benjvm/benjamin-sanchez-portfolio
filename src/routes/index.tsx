@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type ComponentType, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type ComponentType, type FormEvent, type PointerEvent, type ReactNode } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -100,6 +100,20 @@ function Portfolio() {
     event.currentTarget.reset();
   };
 
+  const moveHero = (event: PointerEvent<HTMLElement>) => {
+    if (!window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+    event.currentTarget.style.setProperty("--pointer-x", x.toFixed(3));
+    event.currentTarget.style.setProperty("--pointer-y", y.toFixed(3));
+  };
+
+  const resetHero = (event: PointerEvent<HTMLElement>) => {
+    event.currentTarget.style.setProperty("--pointer-x", "0");
+    event.currentTarget.style.setProperty("--pointer-y", "0");
+  };
+
   return (
     <main className="bg-background text-foreground">
       <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${scrolled || menuOpen ? "border-border bg-background/90 backdrop-blur-xl" : "border-transparent bg-transparent"}`}>
@@ -114,12 +128,12 @@ function Portfolio() {
         {menuOpen && <div className="border-t border-border bg-background px-5 py-6 md:hidden">{navItems.map((item, index) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="flex border-b border-border py-4 font-display text-2xl"><span className="mr-5 font-mono text-xs text-signal">0{index + 1}</span>{item}</a>)}<Button asChild variant="signal" className="mt-6 w-full"><a href="/benjamin-sanchez-cv.pdf" download><Download />Download my CV</a></Button></div>}
       </header>
 
-      <section id="top" className="cyber-grid relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10">
+      <section id="top" onPointerMove={moveHero} onPointerLeave={resetHero} className="cyber-grid hero-depth relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10">
         <div className="node-field absolute inset-0" aria-hidden="true"><span className="node node-a"/><span className="node node-b"/><span className="node node-c"/><span className="node node-d"/><i className="chain-line chain-one"/><i className="chain-line chain-two"/></div>
-        <div className="relative z-10 mx-auto w-full max-w-[1480px]">
+        <div className="hero-depth-copy relative z-10 mx-auto w-full max-w-[1480px]">
           <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="status-dot"/><span>System online</span><span className="text-border">/</span><span>Madrid, ES</span><span className="text-border">/</span><span>2026</span></div>
           <p className="mb-4 font-mono text-xs uppercase text-signal">Web Developer · Blockchain Enthusiast</p>
-          <h1 className="max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]">BENJAMIN<br/><span className="outline-type">SÁNCHEZ</span></h1>
+          <h1 aria-label="Benjamin Sánchez" className="typing-name max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]"><span className="typing-line typing-line-first" aria-hidden="true">BENJAMIN</span><span className="typing-line typing-line-second outline-type" aria-hidden="true">SÁNCHEZ</span></h1>
           <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
             <p className="max-w-xl text-lg leading-8 text-muted-foreground md:text-xl">Building useful digital products across web and mobile, while developing toward the decentralized future.</p>
             <Button asChild variant="signal" size="lg"><a href="/benjamin-sanchez-cv.pdf" download><Download />Download my CV</a></Button>
