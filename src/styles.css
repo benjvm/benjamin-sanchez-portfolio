@@ -140,7 +140,7 @@
 
 @media (max-width: 640px) {
   .ps2-structures { width: 170vw; height: 48%; }
-  .code-title { font-size: clamp(1.85rem, 9vw, 3.5rem); }
+  .code-title { font-size: clamp(1.45rem, 7.2vw, 2.4rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
