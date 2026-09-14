@@ -114,22 +114,12 @@ function Portfolio() {
         {menuOpen && <div className="border-t border-border bg-background px-5 py-6 md:hidden">{navItems.map((item, index) => <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className="flex border-b border-border py-4 font-display text-2xl"><span className="mr-5 font-mono text-xs text-signal">0{index + 1}</span>{item}</a>)}<Button asChild variant="signal" className="mt-6 w-full"><a href="/benjamin-sanchez-cv.pdf" download><Download />Download my CV</a></Button></div>}
       </header>
 
-      <section id="top" className="ps2-hero relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10">
-        <div className="ps2-space" aria-hidden="true">
-          <div className="ps2-horizon" />
-          <div className="ps2-structures">
-            {Array.from({ length: 26 }, (_, index) => <i key={index} className={`ps2-tower ps2-tower-${index + 1}`} />)}
-          </div>
-          <div className="ps2-flare" />
-          <div className="ps2-vignette" />
-        </div>
+      <section id="top" className="cyber-grid relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10">
+        <div className="node-field absolute inset-0" aria-hidden="true"><span className="node node-a"/><span className="node node-b"/><span className="node node-c"/><span className="node node-d"/><i className="chain-line chain-one"/><i className="chain-line chain-two"/></div>
         <div className="relative z-10 mx-auto w-full max-w-[1480px]">
           <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground"><span className="status-dot"/><span>System online</span><span className="text-border">/</span><span>Madrid, ES</span><span className="text-border">/</span><span>2026</span></div>
-          <p className="mb-5 font-mono text-xs uppercase text-signal">Web Developer · Blockchain Enthusiast</p>
-          <div className="code-title-shell">
-            <span className="code-title-prefix" aria-hidden="true">const developer =</span>
-            <h1 className="code-title" aria-label="Benjamin Sánchez"><span>“BENJAMIN SÁNCHEZ”;</span></h1>
-          </div>
+          <p className="mb-4 font-mono text-xs uppercase text-signal">Web Developer · Blockchain Enthusiast</p>
+          <h1 className="max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]">BENJAMIN<br/><span className="outline-type">SÁNCHEZ</span></h1>
           <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
             <p className="max-w-xl text-lg leading-8 text-muted-foreground md:text-xl">Building useful digital products across web and mobile, while developing toward the decentralized future.</p>
             <Button asChild variant="signal" size="lg"><a href="/benjamin-sanchez-cv.pdf" download><Download />Download my CV</a></Button>
