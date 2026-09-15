@@ -57,8 +57,13 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import internHubVideo from "@/assets/video_internhub.mp4";
+import internHubImage1 from "@/assets/internhub_image_1.jpeg";
+import internHubImage2 from "@/assets/internhub_image_2.jpeg";
 import wtfoodVideo1 from "@/assets/WTFood_video_1.mp4";
 import wtfoodVideo2 from "@/assets/WTFood_video_2.mp4";
+import wtfoodImage1 from "@/assets/wtfood_image_1.png";
+import wtfoodImage2 from "@/assets/wtfood_image_2.png";
+import excellenceCertificate from "@/assets/excellence_certificate.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -131,15 +136,26 @@ const projects = [
     githubUrl: "https://github.com/benjvm/InternHub",
     type: "WEB PLATFORM",
     description:
-      "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management.",
+      "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management. \n Winner of the Excellence Award in 2025 for best project of the course.",
     tech: ["React", "Firebase", "JavaScript", "Cloudinary"],
     media: [
+      {
+        type: "image",
+        src: internHubImage1,
+        alt: "Vista de la plataforma de gestión de prácticas InternHub",
+      },
       {
         type: "video",
         src: internHubVideo,
         alt: "Demostración de la plataforma de gestión de prácticas InternHub",
       },
+      {
+        type: "image",
+        src: internHubImage2,
+        alt: "Funcionalidades de la plataforma de gestión de prácticas InternHub",
+      },
     ] satisfies ProjectMedia[],
+    certificate: excellenceCertificate,
   },
   {
     index: "02",
@@ -151,12 +167,14 @@ const projects = [
       "A food and recipe app for discovering what to cook with the ingredients you already have, exploring AI-assisted recognition and personalized recommendations.",
     tech: ["Flutter", "Dart", "Firebase", "AI"],
     media: [
+      { type: "image", src: wtfoodImage1, alt: "Pantalla de la aplicación de recetas WTFood" },
       { type: "video", src: wtfoodVideo1, alt: "Demostración de búsqueda de recetas en WTFood" },
       {
         type: "video",
         src: wtfoodVideo2,
         alt: "Demostración de recomendaciones de recetas en WTFood",
       },
+      { type: "image", src: wtfoodImage2, alt: "Funciones de la aplicación de recetas WTFood" },
     ] satisfies ProjectMedia[],
   },
 ];
@@ -387,13 +405,24 @@ function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  <Button asChild variant="signal" className="mt-9">
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer">
-                      <Github />
-                      View on GitHub
-                      <ArrowUpRight />
-                    </a>
-                  </Button>
+                  <div className="mt-9 flex items-center gap-4">
+                    <Button asChild variant="signal">
+                      <a href={project.githubUrl} target="_blank" rel="noreferrer">
+                        <Github />
+                        View on GitHub
+                        <ArrowUpRight />
+                      </a>
+                    </Button>
+                    {project.certificate && (
+                      <img
+                        src={project.certificate}
+                        alt="Certificado de excelencia de InternHub"
+                        width={110}
+                        height={110}
+                        className="size-[110px] object-contain"
+                      />
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
@@ -653,6 +682,15 @@ function ProjectCarousel({
       }
     });
   }, [activeMediaIndex]);
+
+  useEffect(() => {
+    if (!carouselApi || !hasMultipleItems || project.media[activeMediaIndex]?.type !== "image") {
+      return;
+    }
+
+    const timer = window.setTimeout(() => carouselApi.scrollNext(), 3000);
+    return () => window.clearTimeout(timer);
+  }, [activeMediaIndex, carouselApi, hasMultipleItems, project.media]);
 
   return (
     <div

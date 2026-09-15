@@ -179,8 +179,7 @@
 .tech-token:hover { border-color: var(--signal); color: var(--foreground); transform: translateY(-2px); }
 
 .project-block { isolation: isolate; }
-.project-block img { filter: grayscale(1) contrast(1.06); }
-.project-block:hover img { filter: grayscale(.25) contrast(1.02); transform: scale(1.025); }
+.project-block img { filter: contrast(1.02); }
 .scanline { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 49%, color-mix(in oklab, var(--signal) 20%, transparent) 50%, transparent 51%); background-size: 100% 9px; opacity: .15; pointer-events: none; }
 
 .orbit-lines { background-image: radial-gradient(ellipse at 0% 50%, transparent 0 34%, color-mix(in oklab, var(--signal) 30%, transparent) 34.2% 34.35%, transparent 34.55% 47%, color-mix(in oklab, var(--foreground) 11%, transparent) 47.2% 47.35%, transparent 47.55%); opacity: .6; }
