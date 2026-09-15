@@ -55,13 +55,20 @@
   --input: oklch(0.34 0 0);
   --ring: oklch(0.67 0.22 38);
   --signal: oklch(0.67 0.22 38);
-  --surface: oklch(0.145 0 0);
+  --surface: oklch(0.16 0.02 250 / 0.55);
 }
 
 @layer base {
   * { border-color: var(--border); }
-  html { scroll-behavior: smooth; background: var(--background); }
-  body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); letter-spacing: 0; overflow-x: hidden; }
+  html { scroll-behavior: smooth; background: oklch(0.15 0.008 248); }
+  body { margin: 0; background:
+    radial-gradient(ellipse 85% 40% at 28% 12%, oklch(0.28 0.05 258 / 0.5), transparent 62%),
+    radial-gradient(ellipse 70% 35% at 80% 38%, oklch(0.3 0.025 245 / 0.38), transparent 64%),
+    radial-gradient(ellipse 85% 40% at 22% 66%, oklch(0.27 0.045 255 / 0.42), transparent 62%),
+    radial-gradient(ellipse 70% 35% at 78% 92%, oklch(0.3 0.025 245 / 0.36), transparent 64%),
+    linear-gradient(158deg, oklch(0.21 0.035 255), oklch(0.175 0.018 250) 52%, oklch(0.15 0.008 248));
+    background-attachment: fixed;
+    color: var(--foreground); font-family: var(--font-sans); letter-spacing: 0; overflow-x: hidden; }
   ::selection { background: var(--signal); color: var(--primary-foreground); }
   a, button, input, textarea { outline-offset: 4px; }
 }
