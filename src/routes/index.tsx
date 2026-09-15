@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   useEffect,
+  useRef,
   useState,
   type ComponentType,
   type FormEvent,
@@ -53,6 +54,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import internHubVideo from "@/assets/video_internhub.mp4";
 import wtfoodVideo1 from "@/assets/WTFood_video_1.mp4";
@@ -126,6 +128,7 @@ const projects = [
     index: "01",
     hash: "0x1A7F...B24C",
     name: "InternHub",
+    githubUrl: "https://github.com/benjvm/InternHub",
     type: "WEB PLATFORM",
     description:
       "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management.",
@@ -142,6 +145,7 @@ const projects = [
     index: "02",
     hash: "0x8D3E...90AF",
     name: "WTFood",
+    githubUrl: "https://github.com/benjvm/WTFood",
     type: "MOBILE APPLICATION",
     description:
       "A food and recipe app for discovering what to cook with the ingredients you already have, exploring AI-assisted recognition and personalized recommendations.",
@@ -383,7 +387,7 @@ function Portfolio() {
                     ))}
                   </div>
                   <Button asChild variant="signal" className="mt-9">
-                    <a href="https://github.com/" target="_blank" rel="noreferrer">
+                    <a href={project.githubUrl} target="_blank" rel="noreferrer">
                       <Github />
                       View on GitHub
                       <ArrowUpRight />
@@ -617,6 +621,37 @@ function ProjectCarousel({
   className: string;
 }) {
   const hasMultipleItems = project.media.length > 1;
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!carouselApi) {
+      return;
+    }
+
+    const syncActiveMedia = () => setActiveMediaIndex(carouselApi.selectedScrollSnap());
+    syncActiveMedia();
+    carouselApi.on("select", syncActiveMedia);
+
+    return () => {
+      carouselApi.off("select", syncActiveMedia);
+    };
+  }, [carouselApi]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (!video) {
+        return;
+      }
+
+      if (index === activeMediaIndex) {
+        void video.play().catch(() => undefined);
+      } else {
+        video.pause();
+      }
+    });
+  }, [activeMediaIndex]);
 
   return (
     <div
@@ -624,6 +659,7 @@ function ProjectCarousel({
     >
       <Carousel
         opts={{ loop: hasMultipleItems }}
+        setApi={setCarouselApi}
         className="w-full"
         aria-label={`Galería multimedia de ${project.name}`}
       >
@@ -632,8 +668,14 @@ function ProjectCarousel({
             <CarouselItem key={media.src} className="relative pl-0">
               {media.type === "video" ? (
                 <video
-                  controls
                   preload="metadata"
+                  autoPlay={index === 0}
+                  muted
+                  playsInline
+                  ref={(element) => {
+                    videoRefs.current[index] = element;
+                  }}
+                  onEnded={() => carouselApi?.scrollNext()}
                   className="aspect-[16/10] w-full object-cover"
                   aria-label={media.alt}
                 >
@@ -650,17 +692,9 @@ function ProjectCarousel({
                   className="aspect-[16/10] w-full object-cover transition duration-700"
                 />
               )}
-              <div className="scanline" />
-              <div className="absolute bottom-4 right-4 border border-border bg-background/85 px-3 py-2 font-mono text-[10px] text-muted-foreground backdrop-blur">
-                {String(index + 1).padStart(2, "0")} /{" "}
-                {String(project.media.length).padStart(2, "0")}
-              </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="absolute left-4 top-4 border border-border bg-background/85 px-3 py-2 font-mono text-[10px] text-signal backdrop-blur">
-          BLOCK_{project.index}
-        </div>
         {hasMultipleItems && (
           <>
             <CarouselPrevious className="left-4 border-border bg-background/90 hover:bg-background" />

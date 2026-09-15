@@ -1,4 +1,4 @@
-@import "tailwindcss" source(none);
+@import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
 
@@ -96,7 +96,7 @@
   transition: transform .3s ease-out;
 }
 
-.nav-link { display: flex; align-items: center; gap: .45rem; font-family: var(--font-mono); font-size: .68rem; color: var(--muted-foreground); text-transform: uppercase; transition: color .2s ease; }
+.nav-link { display: flex; align-items: center; gap: .45rem; font-family: var(--font-mono); font-size: .78rem; color: var(--muted-foreground); text-transform: uppercase; transition: color .2s ease; }
 .nav-link span { color: var(--signal); }
 .nav-link:hover { color: var(--foreground); }
 
