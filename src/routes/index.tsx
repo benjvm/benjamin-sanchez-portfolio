@@ -195,7 +195,7 @@ function Portfolio() {
   };
 
   return (
-    <main className="bg-background text-foreground">
+    <main className="text-foreground">
       <header
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${scrolled || menuOpen ? "border-border bg-background/90 backdrop-blur-xl" : "border-transparent bg-transparent"}`}
       >
