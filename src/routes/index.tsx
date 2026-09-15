@@ -260,8 +260,9 @@ function Portfolio() {
         id="top"
         onPointerMove={moveHero}
         onPointerLeave={resetHero}
-        className="cyber-grid hero-depth relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10"
+        className="hero-depth relative flex min-h-[100svh] items-center overflow-hidden border-b border-border px-5 py-28 md:px-10"
       >
+        <div className="hero-gradient cyber-grid absolute inset-0" aria-hidden="true" />
         <div className="node-field absolute inset-0" aria-hidden="true">
           <span className="node node-a" />
           <span className="node node-b" />
