@@ -267,14 +267,6 @@ function Portfolio() {
           <i className="chain-line chain-two" />
         </div>
         <div className="hero-depth-copy relative z-10 mx-auto w-full max-w-[1480px]">
-          <div className="mb-12 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground">
-            <span className="status-dot" />
-            <span>System online</span>
-            <span className="text-border">/</span>
-            <span>Valencia, ES</span>
-            <span className="text-border">/</span>
-            <span>2026</span>
-          </div>
           <p className="mb-4 font-mono text-xs uppercase text-signal">
             Web Developer · Blockchain Enthusiast
           </p>
@@ -302,36 +294,25 @@ function Portfolio() {
             </Button>
           </div>
         </div>
-        <a
-          href="#about"
-          className="absolute bottom-7 left-5 z-10 flex items-center gap-3 font-mono text-[10px] uppercase text-muted-foreground md:left-10"
-        >
-          <ArrowDown className="size-4 text-signal" />
-          Scroll to inspect
-        </a>
       </section>
 
-      <Section id="about" number="01" label="About / identity">
+      <Section id="about" number="01" label="About">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
             <p className="eyebrow">A human behind the interface</p>
             <h2 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-7xl">
-              I turn ideas into things people can actually use.
+              Curious by nature Developer by choice
             </h2>
             <div className="mt-10 max-w-2xl space-y-5 text-base leading-8 text-muted-foreground md:text-lg">
               <p>
-                I'm Benjamin, a junior developer trained in both{" "}
+                Hi! I'm Benjamin, a junior developer with a background in{" "}
                 <strong className="text-foreground">DAW</strong> and{" "}
-                <strong className="text-foreground">DAM</strong>. I'm most at home exploring web
-                development, backend technologies and the systems that hold useful products
-                together.
+                <strong className="text-foreground">DAM</strong>. I enjoy building web, backend and mobile applications and learning by turning ideas into real projects.
               </p>
               <p>
-                I enjoy learning by building: trying a new technology, understanding how it works,
-                then putting it into a practical project. Right now, I'm developing the foundations
-                I need to move toward{" "}
-                <strong className="text-foreground">Blockchain and Web3 development</strong> — with
-                curiosity, patience and plenty left to learn.
+                I'm currently exploring <strong className="text-foreground">Blockchain and Web3 development</strong>
+                , combining the foundations I've built as a developer with a new area I'm genuinely curious about.{" "}
+                <strong className="text-foreground">Still learning. Already building.</strong>
               </p>
             </div>
           </div>
@@ -341,7 +322,7 @@ function Portfolio() {
 
       <section id="skills" className="border-y border-border bg-surface py-24 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
-          <SectionHeading number="02" label="Skills / stack" />
+          <SectionHeading number="02" label="Skills" />
           <div className="mt-16 border-t border-border">
             {skillGroups.map(({ title, icon: GroupIcon, skills }, index) => (
               <div
@@ -372,7 +353,7 @@ function Portfolio() {
 
       <section id="projects" className="py-24 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
-          <SectionHeading number="03" label="Projects / verified builds" />
+          <SectionHeading number="03" label="Some of my work" />
           <div className="mt-16 space-y-20 md:space-y-32">
             {projects.map((project, index) => (
               <article
@@ -423,7 +404,7 @@ function Portfolio() {
         <div className="orbit-lines absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[1480px] gap-12 px-5 md:px-10 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
-            <p className="eyebrow">Current direction / not expertise</p>
+            <p className="eyebrow">Current direction</p>
             <h2 className="mt-5 font-display text-5xl font-semibold md:text-7xl">
               Blockchain
               <br />
@@ -456,7 +437,7 @@ function Portfolio() {
         </div>
       </section>
 
-      <Section id="contact" number="04" label="Contact / open channel">
+      <Section id="contact" number="04" label="Contact">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="eyebrow">Connection request</p>
@@ -530,7 +511,7 @@ function CodePanel() {
           <span className="code-value">"Benjamin Sánchez"</span>,{`\n  `}
           <span className="code-key">"education"</span>: [<span className="code-value">"DAW"</span>,{" "}
           <span className="code-value">"DAM"</span>],{`\n  `}
-          <span className="code-key">"builds"</span>: [`\n `
+          <span className="code-key">"builds"</span>: [{`\n    `}
           <span className="code-value">"web"</span>,{`\n    `}
           <span className="code-value">"backend"</span>,{`\n    `}
           <span className="code-value">"mobile"</span>
@@ -542,13 +523,6 @@ function CodePanel() {
           <span className="code-punc">{`}`}</span>
         </code>
       </pre>
-      <div className="code-panel-foot">
-        <span>Ln 01, Col 01</span>
-        <span className="flex items-center gap-2">
-          <span className="status-dot" />
-          VALID OBJECT
-        </span>
-      </div>
     </div>
   );
 }
@@ -581,9 +555,6 @@ function SectionHeading({ number, label }: { number: string; label: string }) {
         <span className="font-mono text-[10px] text-signal">[{number}]</span>
         <p className="font-mono text-xs uppercase text-muted-foreground">{label}</p>
       </div>
-      <span className="hidden items-center gap-2 font-mono text-[10px] text-muted-foreground sm:flex">
-        BLOCK CONFIRMED <ArrowRight className="size-3 text-signal" />
-      </span>
     </div>
   );
 }
@@ -615,8 +586,8 @@ function Field({
 
 function Socials({ className = "" }: { className?: string }) {
   const links = [
-    { label: "GitHub", icon: Github, href: "https://github.com/" },
-    { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/" },
+    { label: "GitHub", icon: Github, href: "https://github.com/benjvm" },
+    { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/benjvm" },
     { label: "Instagram", icon: Instagram, href: "https://instagram.com/" },
   ];
   return (
