@@ -68,9 +68,10 @@
 
 .hero-gradient {
   background:
-    radial-gradient(ellipse 85% 65% at 28% 18%, oklch(0.26 0.045 258 / 0.55), transparent 62%),
-    radial-gradient(ellipse 70% 55% at 80% 72%, oklch(0.28 0.02 245 / 0.4), transparent 65%),
-    linear-gradient(158deg, oklch(0.2 0.03 255), oklch(0.165 0.015 250) 52%, oklch(0.14 0.006 248));
+    radial-gradient(ellipse 85% 65% at 28% 18%, oklch(0.28 0.05 258 / 0.5), transparent 62%),
+    radial-gradient(ellipse 70% 55% at 80% 72%, oklch(0.3 0.025 245 / 0.38), transparent 65%),
+    linear-gradient(158deg, oklch(0.21 0.035 255), oklch(0.175 0.018 250) 52%, oklch(0.15 0.008 248));
+  pointer-events: none;
 }
 
 .cyber-grid {
