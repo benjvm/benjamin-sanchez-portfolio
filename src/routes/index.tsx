@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import {
   useEffect,
   useRef,
@@ -48,6 +49,8 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { contactSchema } from "@/lib/contact-schema";
+import { sendContactMessage } from "@/lib/contact.functions";
 import {
   Carousel,
   CarouselContent,
@@ -183,7 +186,11 @@ const projects = [
 function Portfolio() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [contactStatus, setContactStatus] = useState<"idle" | "submitting" | "success" | "error">(
+    "idle",
+  );
+  const [contactError, setContactError] = useState("");
+  const sendMessage = useServerFn(sendContactMessage);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 32);
@@ -192,10 +199,37 @@ function Portfolio() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSent(true);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const result = contactSchema.safeParse({
+      name: String(formData.get("name") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      message: String(formData.get("message") ?? ""),
+      website: String(formData.get("website") ?? ""),
+    });
+
+    if (!result.success) {
+      setContactStatus("error");
+      setContactError(result.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setContactStatus("submitting");
+    setContactError("");
+
+    try {
+      await sendMessage({ data: result.data });
+      setContactStatus("success");
+      form.reset();
+    } catch {
+      setContactStatus("error");
+      setContactError("We couldn't send your message. Please try again in a moment.");
+    }
   };
 
   const moveHero = (event: PointerEvent<HTMLElement>) => {
@@ -498,16 +532,34 @@ function Portfolio() {
               <Field label="Email" name="email" type="email" autoComplete="email" />
               <label className="block">
                 <span className="field-label">message:</span>
-                <textarea name="message" required rows={5} className="field-control resize-none" />
+                <textarea
+                  name="message"
+                  required
+                  minLength={10}
+                  maxLength={5000}
+                  rows={5}
+                  className="field-control resize-none"
+                />
               </label>
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label>
+                  Website
+                  <input name="website" tabIndex={-1} autoComplete="off" />
+                </label>
+              </div>
               <div className="flex flex-wrap items-center gap-5">
-                <Button type="submit" variant="signal" size="lg">
+                <Button type="submit" variant="signal" size="lg" disabled={contactStatus === "submitting"}>
                   <Send />
-                  Send message
+                  {contactStatus === "submitting" ? "Sending..." : "Send message"}
                 </Button>
-                {sent && (
+                {contactStatus === "success" && (
                   <p role="status" className="text-sm text-muted-foreground">
-                    Thanks — your message is ready to be connected to email delivery.
+                    Thanks — your message has been sent successfully.
+                  </p>
+                )}
+                {contactStatus === "error" && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {contactError}
                   </p>
                 )}
               </div>
@@ -623,7 +675,7 @@ function Socials({ className = "" }: { className?: string }) {
   const links = [
     { label: "GitHub", icon: Github, href: "https://github.com/benjvm" },
     { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/benjvm" },
-    { label: "Instagram", icon: Instagram, href: "https://instagram.com/" },
+    { label: "Instagram", icon: Instagram, href: "https://www.instagram.com/sl.bvvnja" },
   ];
   return (
     <div className={`flex gap-3 ${className}`}>

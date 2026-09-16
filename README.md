@@ -330,3 +330,19 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Contact form email delivery
+
+The contact form sends messages through Resend from the TanStack Start server. The Resend API key is never exposed to the browser.
+
+1. Verify `bnjasanchez.com` in the Resend dashboard and create an API key.
+2. Copy `.env.example` to `.env.local`.
+3. Set these server-only variables in `.env.local` and in your production hosting settings:
+
+```sh
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CONTACT_TO_EMAIL=benjasanchez730@gmail.com
+RESEND_FROM_EMAIL=contacto@bnjasanchez.com
+```
+
+The sender is `Benjamin Sánchez Contact <RESEND_FROM_EMAIL>` and must belong to the verified `bnjasanchez.com` domain. Keep `.env.local` private and never commit the API key. To test locally, start the app with `npm run dev`, submit the form, and confirm the message arrives at `CONTACT_TO_EMAIL`. Check the Resend email logs if delivery fails. The form also rejects invalid input, ignores honeypot submissions, disables duplicate submits, and shows accessible success or error feedback.
