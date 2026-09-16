@@ -64,6 +64,7 @@ import wtfoodVideo2 from "@/assets/WTFood_video_2.mp4";
 import wtfoodImage1 from "@/assets/wtfood_image_1.png";
 import wtfoodImage2 from "@/assets/wtfood_image_2.png";
 import excellenceCertificate from "@/assets/excellence_certificate.png";
+import cvPdf from "@/assets/Benjamin_Sanchez.pdf";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -233,7 +234,7 @@ function Portfolio() {
               </a>
             ))}
             <Button asChild variant="signal" size="sm">
-              <a href="/benjamin-sanchez-cv.pdf" download>
+              <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
                 CV
               </a>
@@ -265,7 +266,7 @@ function Portfolio() {
               </a>
             ))}
             <Button asChild variant="signal" className="mt-6 w-full">
-              <a href="/benjamin-sanchez-cv.pdf" download>
+              <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
                 Download my CV
               </a>
@@ -310,7 +311,7 @@ function Portfolio() {
               decentralized future.
             </p>
             <Button asChild variant="signal" size="lg">
-              <a href="/benjamin-sanchez-cv.pdf" download>
+              <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
                 Download my CV
               </a>
