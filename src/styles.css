@@ -178,7 +178,7 @@
 .tech-token { display: inline-flex; align-items: center; gap: .55rem; border: 1px solid var(--border); padding: .6rem .75rem; font-family: var(--font-mono); font-size: .65rem; color: var(--muted-foreground); transition: border-color .2s ease, color .2s ease, transform .2s ease; }
 .tech-token:hover { border-color: var(--signal); color: var(--foreground); transform: translateY(-2px); }
 
-.project-block { isolation: isolate; }
+.project-block { isolation: isolate; white-space: pre-line;}
 .project-block img { filter: contrast(1.02); }
 .scanline { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 49%, color-mix(in oklab, var(--signal) 20%, transparent) 50%, transparent 51%); background-size: 100% 9px; opacity: .15; pointer-events: none; }
 

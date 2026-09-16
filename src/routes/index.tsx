@@ -136,7 +136,7 @@ const projects = [
     githubUrl: "https://github.com/benjvm/InternHub",
     type: "WEB PLATFORM",
     description:
-      "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management. \n Winner of the Excellence Award in 2025 for best project of the course.",
+      "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management. \nWinner of the Excellence Award in 2025 for best project of the course.",
     tech: ["React", "Firebase", "JavaScript", "Cloudinary"],
     media: [
       {
@@ -322,7 +322,7 @@ function Portfolio() {
       <Section id="about" number="01" label="About">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
-            <p className="eyebrow">A human behind the interface</p>
+            <p className="eyebrow">BUILDING, LEARNING, EXPLORING</p>
             <h2 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-7xl">
               Curious by nature Developer by choice
             </h2>
