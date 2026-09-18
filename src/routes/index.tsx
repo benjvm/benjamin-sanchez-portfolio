@@ -9,6 +9,7 @@ import {
   type PointerEvent,
   type ReactNode,
 } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import {
   ArrowDown,
   ArrowRight,
@@ -49,8 +50,10 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { contactSchema } from "@/lib/contact-schema";
 import { sendContactMessage } from "@/lib/contact.functions";
+import { en, es, getStoredLanguage } from "@/i18n";
 import {
   Carousel,
   CarouselContent,
@@ -70,35 +73,42 @@ import excellenceCertificate from "@/assets/excellence_certificate.png";
 import cvPdf from "@/assets/Benjamin_Sanchez.pdf";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Benjamin Sánchez — Web & Blockchain Developer" },
-      {
-        name: "description",
-        content:
-          "Portfolio de Benjamin Sánchez: desarrollo web, móvil y aprendizaje de Blockchain y Web3.",
-      },
-      { property: "og:title", content: "Benjamin Sánchez — Web & Blockchain Developer" },
-      {
-        property: "og:description",
-        content:
-          "Proyectos web y móvil, tecnología y una trayectoria en desarrollo hacia Blockchain y Web3.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => {
+    const dict = getStoredLanguage() === "es" ? es : en;
+    return {
+      meta: [
+        { title: dict.meta.title },
+        {
+          name: "description",
+          content: dict.meta.description,
+        },
+        { property: "og:title", content: dict.meta.ogTitle },
+        {
+          property: "og:description",
+          content: dict.meta.ogDescription,
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+    };
+  },
   component: Portfolio,
 });
 
-const navItems = ["About", "Skills", "Projects", "Contact"];
+const navItems = [
+  { key: "about", target: "about" },
+  { key: "skills", target: "skills" },
+  { key: "projects", target: "projects" },
+  { key: "contact", target: "contact" },
+] as const;
+
 const skillGroups = [
-  { title: "Frontend", icon: Code2, skills: ["HTML", "CSS", "JavaScript", "React"] },
-  { title: "Backend", icon: Terminal, skills: ["Java", "PHP", "Python", "Node.js"] },
-  { title: "Databases", icon: Database, skills: ["MySQL", "Firebase"] },
-  { title: "Tools & Technologies", icon: Blocks, skills: ["Git", "GitHub", "REST APIs", "Docker"] },
+  { id: "frontend", icon: Code2, skills: ["HTML", "CSS", "JavaScript", "React"] },
+  { id: "backend", icon: Terminal, skills: ["Java", "PHP", "Python", "Node.js"] },
+  { id: "databases", icon: Database, skills: ["MySQL", "Firebase"] },
+  { id: "tools", icon: Blocks, skills: ["Git", "GitHub", "REST APIs", "Docker"] },
   {
-    title: "Learning now",
+    id: "learning",
     icon: Network,
     skills: ["Blockchain", "Web3", "Solidity", "Ethereum", "Smart Contracts"],
   },
@@ -128,62 +138,57 @@ const skillIcons: Record<string, ComponentType<{ className?: string }>> = {
 
 type ProjectMedia = {
   src: string;
-  alt: string;
+  mediaKey: string;
   type: "image" | "video";
 };
 
 const projects = [
   {
+    id: "internhub",
     index: "01",
     hash: "0x1A7F...B24C",
-    name: "InternHub",
     githubUrl: "https://github.com/benjvm/InternHub",
-    type: "WEB PLATFORM",
-    description:
-      "A platform connecting students, companies and professors throughout the internship process — from offers and applications to profiles and company management. \nWinner of the Excellence Award in 2025 for best project of the course.",
     tech: ["React", "Firebase", "JavaScript", "Cloudinary"],
     media: [
       {
         type: "image",
         src: internHubImage1,
-        alt: "Vista de la plataforma de gestión de prácticas InternHub",
+        mediaKey: "image1",
       },
       {
         type: "video",
         src: internHubVideo,
-        alt: "Demostración de la plataforma de gestión de prácticas InternHub",
+        mediaKey: "video1",
       },
       {
         type: "image",
         src: internHubImage2,
-        alt: "Funcionalidades de la plataforma de gestión de prácticas InternHub",
+        mediaKey: "image2",
       },
     ] satisfies ProjectMedia[],
     certificate: excellenceCertificate,
   },
   {
+    id: "wtfood",
     index: "02",
     hash: "0x8D3E...90AF",
-    name: "WTFood",
     githubUrl: "https://github.com/benjvm/WTFood",
-    type: "MOBILE APPLICATION",
-    description:
-      "A food and recipe app for discovering what to cook with the ingredients you already have, exploring AI-assisted recognition and personalized recommendations.",
     tech: ["Flutter", "Dart", "Firebase", "AI"],
     media: [
-      { type: "image", src: wtfoodImage1, alt: "Pantalla de la aplicación de recetas WTFood" },
-      { type: "video", src: wtfoodVideo1, alt: "Demostración de búsqueda de recetas en WTFood" },
+      { type: "image", src: wtfoodImage1, mediaKey: "image1" },
+      { type: "video", src: wtfoodVideo1, mediaKey: "video1" },
       {
         type: "video",
         src: wtfoodVideo2,
-        alt: "Demostración de recomendaciones de recetas en WTFood",
+        mediaKey: "video2",
       },
-      { type: "image", src: wtfoodImage2, alt: "Funciones de la aplicación de recetas WTFood" },
+      { type: "image", src: wtfoodImage2, mediaKey: "image2" },
     ] satisfies ProjectMedia[],
   },
 ];
 
 function Portfolio() {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState<"idle" | "submitting" | "success" | "error">(
@@ -215,7 +220,7 @@ function Portfolio() {
 
     if (!result.success) {
       setContactStatus("error");
-      setContactError(result.error.issues[0]?.message ?? "Please check the form and try again.");
+      setContactError(t(result.error.issues[0]?.message ?? "contact.errors.checkForm"));
       return;
     }
 
@@ -228,7 +233,7 @@ function Portfolio() {
       form.reset();
     } catch {
       setContactStatus("error");
-      setContactError("We couldn't send your message. Please try again in a moment.");
+      setContactError(t("contact.errors.sendFailed"));
     }
   };
 
@@ -247,13 +252,15 @@ function Portfolio() {
     event.currentTarget.style.setProperty("--pointer-y", "0");
   };
 
+  const blockchainItems = ["0", "1", "2", "3", "4"].map((key) => t(`blockchain.items.${key}`));
+
   return (
     <main className="text-foreground">
       <header
         className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${scrolled || menuOpen ? "border-border bg-background/90 backdrop-blur-xl" : "border-transparent bg-transparent"}`}
       >
         <nav
-          aria-label="Main navigation"
+          aria-label={t("nav.ariaLabel")}
           className="mx-auto flex h-16 max-w-[1480px] items-center justify-between px-5 md:px-10"
         >
           <a href="#top" className="font-mono text-xs font-semibold text-foreground">
@@ -262,15 +269,16 @@ function Portfolio() {
           </a>
           <div className="hidden items-center gap-8 md:flex">
             {navItems.map((item, index) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="nav-link">
+              <a key={item.key} href={`#${item.target}`} className="nav-link">
                 <span>0{index + 1}</span>
-                {item}
+                {t(`nav.${item.key}`)}
               </a>
             ))}
+            <LanguageSwitcher />
             <Button asChild variant="signal" size="sm">
               <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
-                CV
+                {t("nav.cvShort")}
               </a>
             </Button>
           </div>
@@ -279,7 +287,7 @@ function Portfolio() {
             variant="ghost"
             size="icon"
             className="md:hidden"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
           >
@@ -290,21 +298,24 @@ function Portfolio() {
           <div className="border-t border-border bg-background px-5 py-6 md:hidden">
             {navItems.map((item, index) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.key}
+                href={`#${item.target}`}
                 onClick={() => setMenuOpen(false)}
                 className="flex border-b border-border py-4 font-display text-2xl"
               >
                 <span className="mr-5 font-mono text-xs text-signal">0{index + 1}</span>
-                {item}
+                {t(`nav.${item.key}`)}
               </a>
             ))}
-            <Button asChild variant="signal" className="mt-6 w-full">
-              <a href={cvPdf} download target="_blank" rel="noreferrer">
-                <Download />
-                Download my CV
-              </a>
-            </Button>
+            <div className="mt-6 flex items-center justify-between">
+              <LanguageSwitcher />
+              <Button asChild variant="signal" className="w-full">
+                <a href={cvPdf} download target="_blank" rel="noreferrer">
+                  <Download />
+                  {t("nav.downloadCv")}
+                </a>
+              </Button>
+            </div>
           </div>
         )}
       </header>
@@ -325,11 +336,9 @@ function Portfolio() {
           <i className="chain-line chain-two" />
         </div>
         <div className="hero-depth-copy relative z-10 mx-auto w-full max-w-[1480px]">
-          <p className="mb-4 font-mono text-xs uppercase text-signal">
-            Web Developer · Blockchain Enthusiast
-          </p>
+          <p className="mb-4 font-mono text-xs uppercase text-signal">{t("hero.eyebrow")}</p>
           <h1
-            aria-label="Benjamin Sánchez"
+            aria-label={t("hero.nameAria")}
             className="typing-name max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]"
           >
             <span className="typing-line typing-line-first" aria-hidden="true">
@@ -341,36 +350,43 @@ function Portfolio() {
           </h1>
           <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
             <p className="max-w-xl text-lg leading-8 text-muted-foreground md:text-xl">
-              Building useful digital products across web and mobile, while developing toward the
-              decentralized future.
+              {t("hero.tagline")}
             </p>
             <Button asChild variant="signal" size="lg">
               <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
-                Download my CV
+                {t("nav.downloadCv")}
               </a>
             </Button>
           </div>
         </div>
       </section>
 
-      <Section id="about" number="01" label="About">
+      <Section id="about" number="01" labelKey="about.label">
         <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
-            <p className="eyebrow">BUILDING, LEARNING, EXPLORING</p>
+            <p className="eyebrow">{t("about.eyebrow")}</p>
             <h2 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.05] md:text-7xl">
-              Curious by nature Developer by choice
+              {t("about.heading")}
             </h2>
             <div className="mt-10 max-w-2xl space-y-5 text-base leading-8 text-muted-foreground md:text-lg">
               <p>
-                Hi! I'm Benjamin, a junior developer with a background in{" "}
-                <strong className="text-foreground">DAW</strong> and{" "}
-                <strong className="text-foreground">DAM</strong>. I enjoy building web, backend and mobile applications and learning by turning ideas into real projects.
+                <Trans
+                  i18nKey="about.p1"
+                  components={{
+                    1: <strong className="text-foreground" />,
+                    2: <strong className="text-foreground" />,
+                  }}
+                />
               </p>
               <p>
-                I'm currently exploring <strong className="text-foreground">Blockchain and Web3 development</strong>
-                , combining the foundations I've built as a developer with a new area I'm genuinely curious about.{" "}
-                <strong className="text-foreground">Still learning. Already building.</strong>
+                <Trans
+                  i18nKey="about.p2"
+                  components={{
+                    1: <strong className="text-foreground" />,
+                    2: <strong className="text-foreground" />,
+                  }}
+                />
               </p>
             </div>
           </div>
@@ -380,17 +396,17 @@ function Portfolio() {
 
       <section id="skills" className="border-y border-border bg-surface py-24 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
-          <SectionHeading number="02" label="Skills" />
+          <SectionHeading number="02" labelKey="skills.label" />
           <div className="mt-16 border-t border-border">
-            {skillGroups.map(({ title, icon: GroupIcon, skills }, index) => (
+            {skillGroups.map(({ id, icon: GroupIcon, skills }, index) => (
               <div
-                key={title}
+                key={id}
                 className="skill-row group grid gap-6 border-b border-border py-8 md:grid-cols-[64px_1fr_2fr] md:items-center"
               >
                 <span className="font-mono text-xs text-muted-foreground">0{index + 1}</span>
                 <div className="flex items-center gap-3">
                   <GroupIcon className="size-5 text-signal" />
-                  <h3 className="font-display text-lg font-medium">{title}</h3>
+                  <h3 className="font-display text-lg font-medium">{t(`skills.groups.${id}`)}</h3>
                 </div>
                 <div className="flex flex-wrap gap-3 md:justify-end">
                   {skills.map((skill) => {
@@ -411,24 +427,24 @@ function Portfolio() {
 
       <section id="projects" className="py-24 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
-          <SectionHeading number="03" label="Some of my work" />
+          <SectionHeading number="03" labelKey="projects.label" />
           <div className="mt-16 space-y-20 md:space-y-32">
             {projects.map((project, index) => (
               <article
-                key={project.name}
+                key={project.id}
                 className="project-block grid gap-8 lg:grid-cols-12 lg:items-center"
               >
                 <ProjectCarousel project={project} className={index % 2 ? "lg:order-2" : ""} />
                 <div className="lg:col-span-5 lg:px-8">
                   <div className="flex items-center justify-between border-b border-border pb-4 font-mono text-[10px] text-muted-foreground">
-                    <span>{project.type}</span>
+                    <span>{t(`projects.items.${project.id}.type`)}</span>
                     <span>{project.hash}</span>
                   </div>
                   <h3 className="mt-7 font-display text-5xl font-semibold md:text-7xl">
-                    {project.name}
+                    {t(`projects.items.${project.id}.name`)}
                   </h3>
                   <p className="mt-6 text-base leading-8 text-muted-foreground md:text-lg">
-                    {project.description}
+                    {t(`projects.items.${project.id}.description`)}
                   </p>
                   <div className="mt-7 flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
@@ -444,14 +460,14 @@ function Portfolio() {
                     <Button asChild variant="signal">
                       <a href={project.githubUrl} target="_blank" rel="noreferrer">
                         <Github />
-                        View on GitHub
+                        {t("projects.viewOnGithub")}
                         <ArrowUpRight />
                       </a>
                     </Button>
                     {project.certificate && (
                       <img
                         src={project.certificate}
-                        alt="Certificado de excelencia de InternHub"
+                        alt={t(`projects.items.${project.id}.certificateAlt`)}
                         width={110}
                         height={110}
                         className="size-[110px] object-contain"
@@ -464,7 +480,7 @@ function Portfolio() {
           </div>
           <div className="mt-24 flex items-center gap-4 border-t border-border pt-6 font-mono text-xs uppercase text-muted-foreground">
             <span className="status-dot" />
-            More projects coming soon...
+            {t("projects.moreComingSoon")}
           </div>
         </div>
       </section>
@@ -473,26 +489,19 @@ function Portfolio() {
         <div className="orbit-lines absolute inset-0" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[1480px] gap-12 px-5 md:px-10 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
-            <p className="eyebrow">Current direction</p>
+            <p className="eyebrow">{t("blockchain.eyebrow")}</p>
             <h2 className="mt-5 font-display text-5xl font-semibold md:text-7xl">
-              Blockchain
+              {t("blockchain.heading")}
               <br />
-              <span className="text-signal">& Web3</span>
+              <span className="text-signal">{t("blockchain.headingAccent")}</span>
             </h2>
           </div>
           <div className="lg:pt-12">
             <p className="max-w-3xl text-2xl leading-relaxed md:text-4xl">
-              Learning how decentralized systems work — and developing toward a future where I can
-              build useful, thoughtful products on them.
+              {t("blockchain.description")}
             </p>
             <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2">
-              {[
-                "Smart Contracts",
-                "Solidity",
-                "Ethereum",
-                "Decentralized Applications",
-                "Web3 Development",
-              ].map((item, index) => (
+              {blockchainItems.map((item, index) => (
                 <div
                   key={item}
                   className="flex items-center gap-4 bg-surface px-5 py-5 font-mono text-xs"
@@ -506,32 +515,40 @@ function Portfolio() {
         </div>
       </section>
 
-      <Section id="contact" number="04" label="Contact">
+      <Section id="contact" number="04" labelKey="contact.label">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="eyebrow">Connection request</p>
+            <p className="eyebrow">{t("contact.eyebrow")}</p>
             <h2 className="mt-5 font-display text-5xl font-semibold leading-none md:text-7xl">
-              Let's build something worth sharing.
+              {t("contact.heading")}
             </h2>
-            <p className="mt-7 max-w-md leading-7 text-muted-foreground">
-              Have an idea, an opportunity, or simply want to connect? Send me a message.
-            </p>
+            <p className="mt-7 max-w-md leading-7 text-muted-foreground">{t("contact.intro")}</p>
             <Socials className="mt-10" />
           </div>
           <form
             onSubmit={submit}
             className="border border-border bg-surface p-6 md:p-10"
-            aria-label="Contact form"
+            aria-label={t("contact.formAria")}
           >
             <div className="mb-9 flex items-center justify-between border-b border-border pb-4 font-mono text-[10px] text-muted-foreground">
-              <span>POST /MESSAGE</span>
-              <span className="text-signal">ENCRYPTED CHANNEL</span>
+              <span>{t("contact.requestLabel")}</span>
+              <span className="text-signal">{t("contact.channel")}</span>
             </div>
             <div className="space-y-7">
-              <Field label="Name" name="name" type="text" autoComplete="name" />
-              <Field label="Email" name="email" type="email" autoComplete="email" />
+              <Field
+                labelKey="contact.fields.name"
+                name="name"
+                type="text"
+                autoComplete="name"
+              />
+              <Field
+                labelKey="contact.fields.email"
+                name="email"
+                type="email"
+                autoComplete="email"
+              />
               <label className="block">
-                <span className="field-label">message:</span>
+                <span className="field-label">{t("contact.fields.message").toLowerCase()}:</span>
                 <textarea
                   name="message"
                   required
@@ -543,18 +560,18 @@ function Portfolio() {
               </label>
               <div className="absolute -left-[9999px]" aria-hidden="true">
                 <label>
-                  Website
+                  {t("contact.fields.website")}
                   <input name="website" tabIndex={-1} autoComplete="off" />
                 </label>
               </div>
               <div className="flex flex-wrap items-center gap-5">
                 <Button type="submit" variant="signal" size="lg" disabled={contactStatus === "submitting"}>
                   <Send />
-                  {contactStatus === "submitting" ? "Sending..." : "Send message"}
+                  {contactStatus === "submitting" ? t("contact.submitting") : t("contact.submit")}
                 </Button>
                 {contactStatus === "success" && (
                   <p role="status" className="text-sm text-muted-foreground">
-                    Thanks — your message has been sent successfully.
+                    {t("contact.success")}
                   </p>
                 )}
                 {contactStatus === "error" && (
@@ -571,7 +588,7 @@ function Portfolio() {
       <footer className="border-t border-border bg-surface py-8">
         <div className="mx-auto flex max-w-[1480px] flex-col gap-6 px-5 md:flex-row md:items-center md:justify-between md:px-10">
           <p className="font-mono text-xs text-muted-foreground">
-            © 2026 Benjamin Sánchez <span className="text-signal">//</span> ALL SYSTEMS OPERATIONAL
+            {t("footer.copyright")} <span className="text-signal">//</span> {t("footer.status")}
           </p>
           <Socials />
         </div>
@@ -581,16 +598,17 @@ function Portfolio() {
 }
 
 function CodePanel() {
+  const { t } = useTranslation();
   return (
     <div className="code-panel">
       <div className="code-panel-head">
         <span className="flex items-center gap-2">
           <Braces className="size-4 text-signal" />
-          profile.json
+          {t("codePanel.file")}
         </span>
-        <span>UTF-8</span>
+        <span>{t("codePanel.encoding")}</span>
       </div>
-      <pre aria-label="Profile data in JSON format">
+      <pre aria-label={t("codePanel.ariaLabel")}>
         <code>
           <span className="code-punc">{`{`}</span>
           {`\n  `}
@@ -605,7 +623,8 @@ function CodePanel() {
           {`\n  `}],{`\n  `}
           <span className="code-key">"next_block"</span>: <span className="code-value">"web3"</span>
           ,{`\n  `}
-          <span className="code-key">"status"</span>: <span className="code-bool">"learning"</span>
+          <span className="code-key">"status"</span>:{" "}
+          <span className="code-bool">"{t("codePanel.status")}"</span>
           {`\n`}
           <span className="code-punc">{`}`}</span>
         </code>
@@ -617,49 +636,55 @@ function CodePanel() {
 function Section({
   id,
   number,
-  label,
+  labelKey,
   children,
 }: {
   id: string;
   number: string;
-  label: string;
+  labelKey: string;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
+
   return (
-    <section id={id} className="scroll-mt-16 py-24 md:py-36">
+    <section id={id} aria-label={t(labelKey)} className="scroll-mt-16 py-24 md:py-36">
       <div className="mx-auto max-w-[1480px] px-5 md:px-10">
-        <SectionHeading number={number} label={label} />
+        <SectionHeading number={number} labelKey={labelKey} />
         <div className="mt-16">{children}</div>
       </div>
     </section>
   );
 }
 
-function SectionHeading({ number, label }: { number: string; label: string }) {
+function SectionHeading({ number, labelKey }: { number: string; labelKey: string }) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex items-center justify-between border-b border-border pb-4">
       <div className="flex items-center gap-4">
         <span className="font-mono text-[10px] text-signal">[{number}]</span>
-        <p className="font-mono text-xs uppercase text-muted-foreground">{label}</p>
+        <p className="font-mono text-xs uppercase text-muted-foreground">{t(labelKey)}</p>
       </div>
     </div>
   );
 }
 
 function Field({
-  label,
+  labelKey,
   name,
   type,
   autoComplete,
 }: {
-  label: string;
+  labelKey: string;
   name: string;
   type: string;
   autoComplete: string;
 }) {
+  const { t } = useTranslation();
+
   return (
     <label className="block">
-      <span className="field-label">{label.toLowerCase()}:</span>
+      <span className="field-label">{t(labelKey).toLowerCase()}:</span>
       <input
         name={name}
         type={type}
@@ -672,26 +697,30 @@ function Field({
 }
 
 function Socials({ className = "" }: { className?: string }) {
+  const { t } = useTranslation();
   const links = [
-    { label: "GitHub", icon: Github, href: "https://github.com/benjvm" },
-    { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/benjvm" },
-    { label: "Instagram", icon: Instagram, href: "https://www.instagram.com/sl.bvvnja" },
+    { key: "github", icon: Github, href: "https://github.com/benjvm" },
+    { key: "linkedin", icon: Linkedin, href: "https://linkedin.com/in/benjvm" },
+    { key: "instagram", icon: Instagram, href: "https://www.instagram.com/sl.bvvnja" },
   ];
   return (
     <div className={`flex gap-3 ${className}`}>
-      {links.map(({ label, icon: Icon, href }) => (
-        <a
-          key={label}
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={label}
-          title={label}
-          className="social-link"
-        >
-          <Icon className="size-4" />
-        </a>
-      ))}
+      {links.map(({ key, icon: Icon, href }) => {
+        const label = t(`socials.${key}`);
+        return (
+          <a
+            key={key}
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={label}
+            title={label}
+            className="social-link"
+          >
+            <Icon className="size-4" />
+          </a>
+        );
+      })}
     </div>
   );
 }
@@ -703,6 +732,7 @@ function ProjectCarousel({
   project: (typeof projects)[number];
   className: string;
 }) {
+  const { t } = useTranslation();
   const hasMultipleItems = project.media.length > 1;
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
@@ -745,6 +775,8 @@ function ProjectCarousel({
     return () => window.clearTimeout(timer);
   }, [activeMediaIndex, carouselApi, hasMultipleItems, project.media]);
 
+  const mediaAlt = (mediaKey: string) => t(`projects.items.${project.id}.media.${mediaKey}`);
+
   return (
     <div
       className={`relative overflow-hidden border border-border bg-surface lg:col-span-7 ${className}`}
@@ -753,7 +785,7 @@ function ProjectCarousel({
         opts={{ loop: hasMultipleItems }}
         setApi={setCarouselApi}
         className="w-full"
-        aria-label={`Galería multimedia de ${project.name}`}
+        aria-label={t("projects.carouselAria", { name: t(`projects.items.${project.id}.name`) })}
       >
         <CarouselContent className="ml-0">
           {project.media.map((media, index) => (
@@ -769,15 +801,15 @@ function ProjectCarousel({
                   }}
                   onEnded={() => carouselApi?.scrollNext()}
                   className="aspect-[16/10] w-full object-cover"
-                  aria-label={media.alt}
+                  aria-label={mediaAlt(media.mediaKey)}
                 >
                   <source src={media.src} type="video/mp4" />
-                  Tu navegador no admite la reproducción de vídeo.
+                  {t("projects.videoUnsupported")}
                 </video>
               ) : (
                 <img
                   src={media.src}
-                  alt={media.alt}
+                  alt={mediaAlt(media.mediaKey)}
                   width={1408}
                   height={880}
                   loading="lazy"

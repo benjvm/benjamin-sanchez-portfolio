@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "title": "Benjamin Sánchez — Desarrollador Web y Blockchain",
+    "description": "Portafolio de Benjamin Sánchez: desarrollo web y móvil, y aprendizaje de Blockchain y Web3.",
+    "ogTitle": "Benjamin Sánchez — Desarrollador Web y Blockchain",
+    "ogDescription": "Proyectos web y móviles, tecnología y una trayectoria en desarrollo hacia Blockchain y Web3."
+  },
+  "nav": {
+    "ariaLabel": "Navegación principal",
+    "about": "Sobre mí",
+    "skills": "Habilidades",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "languageAriaLabel": "Selector de idioma",
+    "cvShort": "CV",
+    "downloadCv": "Descargar mi CV"
+  },
+  "hero": {
+    "eyebrow": "Desarrollador Web · Entusiasta de Blockchain",
+    "nameAria": "Benjamin Sánchez",
+    "tagline": "Construyendo productos digitales útiles en web y móvil, mientras me desarrollo hacia el futuro descentralizado."
+  },
+  "about": {
+    "label": "Sobre mí",
+    "eyebrow": "CONSTRUYENDO, APRENDIENDO, EXPLORANDO",
+    "heading": "Curioso por naturaleza, desarrollador por decisión",
+    "p1": "¡Hola! Soy Benjamin, un desarrollador junior con formación en <1>DAW</1> y <2>DAM</2>. Disfruto construyendo aplicaciones web, de backend y móviles, y aprendiendo al convertir ideas en proyectos reales.",
+    "p2": "Actualmente estoy explorando el <1>desarrollo de Blockchain y Web3</1>, combinando las bases que he construido como desarrollador con un área nueva que me despierta mucha curiosidad. <2>Aprendiendo. Ya construyendo.</2>"
+  },
+  "skills": {
+    "label": "Habilidades",
+    "groups": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Bases de datos",
+      "tools": "Herramientas y tecnologías",
+      "learning": "Aprendiendo ahora"
+    }
+  },
+  "projects": {
+    "label": "Algunos de mis proyectos",
+    "viewOnGithub": "Ver en GitHub",
+    "moreComingSoon": "Más proyectos próximamente...",
+    "carouselAria": "Galería multimedia de {{name}}",
+    "videoUnsupported": "Tu navegador no admite la reproducción de vídeo.",
+    "items": {
+      "internhub": {
+        "name": "InternHub",
+        "type": "PLATAFORMA WEB",
+        "description": "Una plataforma que conecta a estudiantes, empresas y profesores durante todo el proceso de prácticas — desde ofertas y solicitudes hasta perfiles y gestión de empresas. \nGanador del Premio a la Excelencia en 2025 al mejor proyecto del curso.",
+        "certificateAlt": "Certificado de excelencia de InternHub",
+        "media": {
+          "image1": "Vista de la plataforma de gestión de prácticas InternHub",
+          "video1": "Demostración de la plataforma de gestión de prácticas InternHub",
+          "image2": "Funcionalidades de la plataforma de gestión de prácticas InternHub"
+        }
+      },
+      "wtfood": {
+        "name": "WTFood",
+        "type": "APLICACIÓN MÓVIL",
+        "description": "Una aplicación de comida y recetas para descubrir qué cocinar con los ingredientes que ya tienes, explorando el reconocimiento asistido por IA y recomendaciones personalizadas.",
+        "media": {
+          "image1": "Pantalla de la aplicación de recetas WTFood",
+          "video1": "Demostración de búsqueda de recetas en WTFood",
+          "video2": "Demostración de recomendaciones de recetas en WTFood",
+          "image2": "Funciones de la aplicación de recetas WTFood"
+        }
+      }
+    }
+  },
+  "blockchain": {
+    "eyebrow": "Dirección actual",
+    "heading": "Blockchain",
+    "headingAccent": "& Web3",
+    "description": "Aprendiendo cómo funcionan los sistemas descentralizados — y desarrollándome hacia un futuro en el que pueda construir productos útiles y cuidadosos sobre ellos.",
+    "items": [
+      "Contratos Inteligentes",
+      "Solidity",
+      "Ethereum",
+      "Aplicaciones Descentralizadas",
+      "Desarrollo Web3"
+    ]
+  },
+  "contact": {
+    "label": "Contacto",
+    "eyebrow": "Solicitud de conexión",
+    "heading": "Construyamos algo que merezca la pena compartir.",
+    "intro": "¿Tienes una idea, una oportunidad o simplemente quieres conectar? Envíame un mensaje.",
+    "formAria": "Formulario de contacto",
+    "requestLabel": "POST /MESSAGE",
+    "channel": "CANAL CIFRADO",
+    "fields": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "message": "mensaje",
+      "website": "Sitio web"
+    },
+    "submit": "Enviar mensaje",
+    "submitting": "Enviando...",
+    "success": "Gracias — tu mensaje se ha enviado correctamente.",
+    "errors": {
+      "checkForm": "Revisa el formulario e inténtalo de nuevo.",
+      "sendFailed": "No pudimos enviar tu mensaje. Inténtalo de nuevo en un momento.",
+      "nameRequired": "Introduce tu nombre.",
+      "nameTooLong": "Tu nombre es demasiado largo.",
+      "emailInvalid": "Introduce una dirección de correo válida.",
+      "emailTooLong": "Tu dirección de correo es demasiado larga.",
+      "messageTooShort": "Tu mensaje es demasiado corto.",
+      "messageTooLong": "Tu mensaje es demasiado largo.",
+      "invalidSubmission": "Envío no válido."
+    }
+  },
+  "socials": {
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram"
+  },
+  "footer": {
+    "copyright": "© 2026 Benjamin Sánchez",
+    "status": "TODOS LOS SISTEMAS OPERATIVOS"
+  },
+  "codePanel": {
+    "file": "profile.json",
+    "encoding": "UTF-8",
+    "ariaLabel": "Datos del perfil en formato JSON",
+    "status": "aprendiendo"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "goHome": "Volver al inicio"
+  },
+  "error": {
+    "title": "Esta página no se cargó",
+    "description": "Algo salió mal por nuestra parte. Puedes intentar recargar o volver al inicio.",
+    "retry": "Intentar de nuevo",
+    "goHome": "Volver al inicio"
+  }
+}
