@@ -8,7 +8,7 @@ import es from "./es.json";
 export const LANGUAGE_STORAGE_KEY = "i18nextLng";
 export const supportedLanguages = ["en", "es"] as const;
 export type SupportedLanguage = (typeof supportedLanguages)[number];
-export const defaultLanguage: SupportedLanguage = "en";
+export const defaultLanguage: SupportedLanguage = "es";
 
 export const resources = {
   en: { translation: en },
@@ -19,7 +19,10 @@ export { en, es };
 
 export function getStoredLanguage(): SupportedLanguage {
   if (typeof window === "undefined") return defaultLanguage;
-  return window.localStorage.getItem(LANGUAGE_STORAGE_KEY)?.startsWith("es") ? "es" : "en";
+  const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  if (storedLanguage?.startsWith("en")) return "en";
+  if (storedLanguage?.startsWith("es")) return "es";
+  return defaultLanguage;
 }
 
 if (!i18n.isInitialized) {
@@ -30,7 +33,7 @@ if (!i18n.isInitialized) {
     nonExplicitSupportedLngs: true,
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       caches: ["localStorage"],
       lookupLocalStorage: LANGUAGE_STORAGE_KEY,
     },

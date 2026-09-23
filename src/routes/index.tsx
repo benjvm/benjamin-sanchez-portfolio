@@ -202,19 +202,21 @@ function Portfolio() {
       >
         <nav
           aria-label={t("nav.ariaLabel")}
-          className="mx-auto flex h-16 max-w-[1480px] items-center justify-between px-5 md:px-10"
+          className="mx-auto flex h-16 max-w-[1480px] items-center justify-between px-5 md:px-10 lg:grid lg:grid-cols-[1fr_auto_1fr]"
         >
-          <a href="#top" className="font-mono text-xs font-semibold text-foreground">
+          <a href="#top" className="justify-self-start font-sans text-sm font-semibold tracking-[0.08em] text-foreground">
             <span className="text-signal">{`{ `}</span>BS.DEV
             <span className="text-signal">{` }`}</span>
           </a>
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 lg:flex lg:justify-self-center">
             {navItems.map((item, index) => (
               <a key={item.key} href={`#${item.target}`} className="nav-link">
                 <span>0{index + 1}</span>
                 {t(`nav.${item.key}`)}
               </a>
             ))}
+          </div>
+          <div className="hidden items-center gap-3 lg:flex lg:justify-self-end">
             <LanguageSwitcher />
             <Button asChild variant="signal" size="sm">
               <a href={cvPdf} download target="_blank" rel="noreferrer">
@@ -227,7 +229,7 @@ function Portfolio() {
             type="button"
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="lg:hidden"
             aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -236,13 +238,13 @@ function Portfolio() {
           </Button>
         </nav>
         {menuOpen && (
-          <div className="border-t border-border bg-background px-5 py-6 md:hidden">
+          <div className="border-t border-border bg-background px-5 py-6 lg:hidden">
             {navItems.map((item, index) => (
               <a
                 key={item.key}
                 href={`#${item.target}`}
                 onClick={() => setMenuOpen(false)}
-                className="flex border-b border-border py-4 font-display text-2xl"
+                className="flex border-b border-border py-4 font-sans text-lg font-semibold"
               >
                 <span className="mr-5 font-mono text-xs text-signal">0{index + 1}</span>
                 {t(`nav.${item.key}`)}
@@ -277,7 +279,7 @@ function Portfolio() {
           <i className="chain-line chain-two" />
         </div>
         <div className="hero-depth-copy relative z-10 mx-auto w-full max-w-[1480px]">
-          <p className="mb-4 font-mono text-xs uppercase text-signal">{t("hero.eyebrow")}</p>
+          <p className="eyebrow mb-4">{t("hero.eyebrow")}</p>
           <h1
             aria-label={t("hero.nameAria")}
             className="typing-name max-w-6xl font-display text-[clamp(3.4rem,11vw,10rem)] font-semibold leading-[0.82]"
@@ -447,7 +449,7 @@ function Portfolio() {
             className="border border-border bg-surface p-6 md:p-10"
             aria-label={t("contact.formAria")}
           >
-            <div className="mb-9 flex items-center justify-between border-b border-border pb-4 font-mono text-[10px] text-muted-foreground">
+            <div className="mb-9 flex items-center justify-between border-b border-border pb-4 font-sans text-xs font-semibold tracking-[0.08em] text-muted-foreground uppercase">
               <span>{t("contact.requestLabel")}</span>
               <span className="text-signal">{t("contact.channel")}</span>
             </div>

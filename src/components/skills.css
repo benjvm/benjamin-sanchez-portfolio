@@ -12,7 +12,7 @@
   min-height: 44px;
   padding: 0.5rem 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.80rem;
   color: var(--muted-foreground);
   cursor: pointer;
 }
@@ -56,10 +56,10 @@
   list-style: none;
 }
 .skills-views .tech-token {
-  font-size: 0.75rem;
+  font-size: 0.80rem;
   color: var(--foreground);
   white-space: nowrap;
-  min-height: 44px;
+  min-height: 55px;
 }
 .skills-lane .tech-token {
   padding: 0.65rem 1rem;
