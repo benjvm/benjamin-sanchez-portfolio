@@ -30,6 +30,12 @@
     "p2": "Actualmente estoy explorando el <1>desarrollo de Blockchain y Web3</1>, combinando las bases que he construido como desarrollador con un área nueva que me despierta mucha curiosidad. <2>Aprendiendo. Ya construyendo.</2>"
   },
   "skills": {
+    "views": {
+      "view": "Vista de tecnologías",
+      "animated": "Animada",
+      "grouped": "Por categorías",
+      "row": "Tecnologías, fila {{number}}"
+    },
     "label": "Habilidades",
     "groups": {
       "frontend": "Frontend",

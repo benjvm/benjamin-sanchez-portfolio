@@ -30,6 +30,12 @@
     "p2": "I'm currently exploring <1>Blockchain and Web3 development</1>, combining the foundations I've built as a developer with a new area I'm genuinely curious about. <2>Still learning. Already building.</2>"
   },
   "skills": {
+    "views": {
+      "view": "Technology view",
+      "animated": "Animated",
+      "grouped": "By category",
+      "row": "Technologies, row {{number}}"
+    },
     "label": "Skills",
     "groups": {
       "frontend": "Frontend",

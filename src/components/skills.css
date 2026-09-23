@@ -1,0 +1,115 @@
+.skills-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  padding: 3px;
+  gap: 3px;
+}
+.skills-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+.skills-switch button[aria-pressed="true"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+.skills-switch button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.skills-views :focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+.skills-lane {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 24px,
+    black calc(100% - 24px),
+    transparent
+  );
+}
+.skills-track {
+  display: flex;
+  width: max-content;
+  animation: skills-drift var(--travel-time) linear infinite;
+}
+/* Two identical halves, no track gap: -50% is exactly one complete sequence. */
+.skills-sequence,
+.skills-repeat {
+  display: flex;
+  flex-shrink: 0;
+}
+.skills-repeat {
+  gap: 12px;
+  padding-right: 12px;
+  margin: 0;
+  list-style: none;
+}
+.skills-views .tech-token {
+  font-size: 0.75rem;
+  color: var(--foreground);
+  white-space: nowrap;
+  min-height: 44px;
+}
+.skills-lane .tech-token {
+  padding: 0.65rem 1rem;
+}
+.skills-lane .tech-token:hover {
+  transform: none;
+  border-color: var(--muted-foreground);
+}
+.skills-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+.skills-views:not([data-running="true"]) .skills-track {
+  animation-play-state: paused;
+}
+@keyframes skills-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-lane {
+    overflow: visible;
+    mask-image: none;
+  }
+  .skills-track {
+    animation: none !important;
+    transform: none;
+    width: auto;
+  }
+  .skills-sequence {
+    width: 100%;
+  }
+  .skills-repeat {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    padding-right: 0;
+  }
+  .skills-sequence[aria-hidden="true"],
+  .skills-repeat[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* A quiet light backing keeps dark brand marks legible without recoloring them. */
+.skill-brand-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.skill-brand-icon[data-dark-mark="true"] {
+  background: #f0f0f0;
+  border-radius: 2px;
+}

@@ -1,10 +1,10 @@
+import { SkillsViews } from "@/components/SkillsViews";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import {
   useEffect,
   useRef,
   useState,
-  type ComponentType,
   type FormEvent,
   type PointerEvent,
   type ReactNode,
@@ -14,41 +14,16 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
-  Blocks,
   Braces,
-  Code2,
-  Database,
   Download,
-  FileCode2,
   Github,
-  Globe,
   Instagram,
   Linkedin,
   Menu,
-  Network,
   Send,
   Smartphone,
-  Terminal,
-  Waypoints,
   X,
 } from "lucide-react";
-import {
-  SiCss,
-  SiDocker,
-  SiEthereum,
-  SiFirebase,
-  SiGit,
-  SiGithub,
-  SiHtml5,
-  SiJavascript,
-  SiMysql,
-  SiNodedotjs,
-  SiPhp,
-  SiPython,
-  SiReact,
-  SiSolidity,
-} from "react-icons/si";
-import { FaJava } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { contactSchema } from "@/lib/contact-schema";
@@ -101,40 +76,6 @@ const navItems = [
   { key: "projects", target: "projects" },
   { key: "contact", target: "contact" },
 ] as const;
-
-const skillGroups = [
-  { id: "frontend", icon: Code2, skills: ["HTML", "CSS", "JavaScript", "React"] },
-  { id: "backend", icon: Terminal, skills: ["Java", "PHP", "Python", "Node.js"] },
-  { id: "databases", icon: Database, skills: ["MySQL", "Firebase"] },
-  { id: "tools", icon: Blocks, skills: ["Git", "GitHub", "REST APIs", "Docker"] },
-  {
-    id: "learning",
-    icon: Network,
-    skills: ["Blockchain", "Web3", "Solidity", "Ethereum", "Smart Contracts"],
-  },
-];
-
-const skillIcons: Record<string, ComponentType<{ className?: string }>> = {
-  HTML: SiHtml5,
-  CSS: SiCss,
-  JavaScript: SiJavascript,
-  React: SiReact,
-  Java: FaJava,
-  PHP: SiPhp,
-  Python: SiPython,
-  "Node.js": SiNodedotjs,
-  MySQL: SiMysql,
-  Firebase: SiFirebase,
-  Git: SiGit,
-  GitHub: SiGithub,
-  "REST APIs": Waypoints,
-  Docker: SiDocker,
-  Blockchain: Blocks,
-  Web3: Globe,
-  Solidity: SiSolidity,
-  Ethereum: SiEthereum,
-  "Smart Contracts": FileCode2,
-};
 
 type ProjectMedia = {
   src: string;
@@ -397,31 +338,7 @@ function Portfolio() {
       <section id="skills" className="border-y border-border bg-surface py-24 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
           <SectionHeading number="02" labelKey="skills.label" />
-          <div className="mt-16 border-t border-border">
-            {skillGroups.map(({ id, icon: GroupIcon, skills }, index) => (
-              <div
-                key={id}
-                className="skill-row group grid gap-6 border-b border-border py-8 md:grid-cols-[64px_1fr_2fr] md:items-center"
-              >
-                <span className="font-mono text-xs text-muted-foreground">0{index + 1}</span>
-                <div className="flex items-center gap-3">
-                  <GroupIcon className="size-5 text-signal" />
-                  <h3 className="font-display text-lg font-medium">{t(`skills.groups.${id}`)}</h3>
-                </div>
-                <div className="flex flex-wrap gap-3 md:justify-end">
-                  {skills.map((skill) => {
-                    const Icon = skillIcons[skill];
-                    return (
-                      <span key={skill} className="tech-token">
-                        {Icon && <Icon className="size-5" />}
-                        <span>{skill}</span>
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
+          <SkillsViews />
         </div>
       </section>
 
@@ -535,12 +452,7 @@ function Portfolio() {
               <span className="text-signal">{t("contact.channel")}</span>
             </div>
             <div className="space-y-7">
-              <Field
-                labelKey="contact.fields.name"
-                name="name"
-                type="text"
-                autoComplete="name"
-              />
+              <Field labelKey="contact.fields.name" name="name" type="text" autoComplete="name" />
               <Field
                 labelKey="contact.fields.email"
                 name="email"
@@ -565,7 +477,12 @@ function Portfolio() {
                 </label>
               </div>
               <div className="flex flex-wrap items-center gap-5">
-                <Button type="submit" variant="signal" size="lg" disabled={contactStatus === "submitting"}>
+                <Button
+                  type="submit"
+                  variant="signal"
+                  size="lg"
+                  disabled={contactStatus === "submitting"}
+                >
                   <Send />
                   {contactStatus === "submitting" ? t("contact.submitting") : t("contact.submit")}
                 </Button>
