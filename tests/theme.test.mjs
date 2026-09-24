@@ -30,17 +30,20 @@ function setup({ stored = null, blocked = false, transition = false, reducedMoti
   if (transition)
     document.startViewTransition = (commit) => {
       let finish;
+      let fail;
       const item = {
         commit,
         skipped: false,
         ready: Promise.resolve(),
-        finished: new Promise((resolve) => {
+        finished: new Promise((resolve, reject) => {
           finish = resolve;
+          fail = reject;
         }),
         skipTransition() {
           this.skipped = true;
         },
         finish: () => finish(),
+        fail: () => fail(Error("transition failed")),
       };
       pending.push(item);
       return item;
@@ -115,6 +118,35 @@ test("a synchronously failing transition still applies the requested theme", () 
   };
   env.api.toggleTheme();
   assert.equal(env.api.useTheme(), "light");
+});
+
+test("reduced motion switches both ways without starting a view transition", () => {
+  const env = setup({ transition: true, reducedMotion: true });
+  for (const expected of ["light", "dark"]) {
+    env.api.toggleTheme();
+    assert.equal(env.api.useTheme(), expected);
+    assert.equal(env.storage.value, expected);
+  }
+  assert.equal(env.pending.length, 0);
+});
+
+test("a failed transition recovers once and does not leave the toggle locked", async () => {
+  for (const alreadyCommitted of [false, true]) {
+    const env = setup({ transition: true });
+    let changes = 0;
+    env.window.addEventListener("portfolio-theme-change", () => changes++);
+    env.api.toggleTheme();
+    if (alreadyCommitted) env.pending[0].commit();
+    env.pending[0].fail();
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(changes, 1);
+    assert.equal(env.api.useTheme(), "light");
+    env.api.toggleTheme();
+    env.pending[1].commit();
+    env.pending[1].finish();
+    assert.equal(env.api.useTheme(), "dark");
+    assert.equal(env.storage.value, "dark");
+  }
 });
 
 test("a click intercepted by the snapshot reaches the live control after interruption", async () => {

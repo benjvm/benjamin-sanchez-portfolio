@@ -60,9 +60,25 @@ export function toggleTheme() {
     /* The in-memory choice still works. */
   }
 
+  let committed = false;
   const commit = () => {
-    if (currentRevision !== revision) return;
+    if (committed || currentRevision !== revision) return;
     flushSync(() => applyTheme(next));
+    // Capture the final palette, not an intermediate hover/header color fade.
+    // Leave transforms and independent CSS animations (hero, skills, etc.) alone.
+    if (typeof CSSTransition !== "undefined") {
+      for (const animation of document.getAnimations()) {
+        if (
+          animation instanceof CSSTransition &&
+          /^(color|background-color|border-.*-color|outline-color|text-decoration-color|fill|stroke|box-shadow)$/.test(
+            animation.transitionProperty,
+          )
+        ) {
+          animation.finish();
+        }
+      }
+    }
+    committed = true;
     requested = undefined;
   };
   const doc = document as Document & {
