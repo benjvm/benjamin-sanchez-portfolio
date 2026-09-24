@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { contactSchema } from "@/lib/contact-schema";
 import { sendContactMessage } from "@/lib/contact.functions";
 import { en, es, getStoredLanguage } from "@/i18n";
@@ -202,13 +203,16 @@ function Portfolio() {
       >
         <nav
           aria-label={t("nav.ariaLabel")}
-          className="mx-auto flex h-16 max-w-[1480px] items-center justify-between px-5 md:px-10 lg:grid lg:grid-cols-[1fr_auto_1fr]"
+          className="mx-auto flex h-16 max-w-[1480px] items-center justify-between gap-4 px-5 md:px-10 xl:grid xl:grid-cols-[1fr_auto_1fr]"
         >
-          <a href="#top" className="justify-self-start font-sans text-sm font-semibold tracking-[0.08em] text-foreground">
+          <a
+            href="#top"
+            className="justify-self-start font-sans text-sm font-semibold tracking-[0.08em] text-foreground"
+          >
             <span className="text-signal">{`{ `}</span>BS.DEV
             <span className="text-signal">{` }`}</span>
           </a>
-          <div className="hidden items-center gap-8 lg:flex lg:justify-self-center">
+          <div className="hidden items-center gap-5 lg:flex xl:gap-8">
             {navItems.map((item, index) => (
               <a key={item.key} href={`#${item.target}`} className="nav-link">
                 <span>0{index + 1}</span>
@@ -217,6 +221,7 @@ function Portfolio() {
             ))}
           </div>
           <div className="hidden items-center gap-3 lg:flex lg:justify-self-end">
+            <ThemeToggle />
             <LanguageSwitcher />
             <Button asChild variant="signal" size="sm">
               <a href={cvPdf} download target="_blank" rel="noreferrer">
@@ -250,7 +255,8 @@ function Portfolio() {
                 {t(`nav.${item.key}`)}
               </a>
             ))}
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <ThemeToggle />
               <LanguageSwitcher />
               <Button asChild variant="signal" className="w-full">
                 <a href={cvPdf} download target="_blank" rel="noreferrer">

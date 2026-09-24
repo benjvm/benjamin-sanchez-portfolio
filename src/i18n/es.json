@@ -17,6 +17,12 @@
     "cvShort": "CV",
     "downloadCv": "Descargar mi CV"
   },
+  "theme": {
+    "dark": "Oscuro",
+    "light": "Claro",
+    "toLight": "Cambiar a modo claro",
+    "toDark": "Cambiar a modo oscuro"
+  },
   "hero": {
     "eyebrow": "Desarrollador Web · Entusiasta de Blockchain",
     "nameAria": "Benjamin Sánchez",

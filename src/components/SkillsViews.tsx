@@ -11,6 +11,7 @@ function Token({ name }: { name: string }) {
       <span
         className="skill-brand-icon"
         data-dark-mark={name === "Solidity" || name === "Ethereum"}
+        data-light-mark={["GitHub", "JavaScript", "React", "Supabase", "Java"].includes(name)}
         style={{ color: skillColors[name] }}
       >
         <Icon aria-hidden="true" className="size-5 shrink-0" />

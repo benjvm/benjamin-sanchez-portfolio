@@ -113,3 +113,13 @@
   background: #f0f0f0;
   border-radius: 2px;
 }
+
+/* Keep original brand colors, with a backing for pale marks on pearl. */
+[data-theme="light"] .skill-brand-icon[data-light-mark="true"] {
+  background: #1D2934;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px #1D2934;
+}
+[data-theme="light"] .skill-brand-icon[data-dark-mark="true"] {
+  background: transparent;
+}

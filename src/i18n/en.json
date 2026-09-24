@@ -17,6 +17,12 @@
     "cvShort": "CV",
     "downloadCv": "Download my CV"
   },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
   "hero": {
     "eyebrow": "Web Developer · Blockchain Enthusiast",
     "nameAria": "Benjamin Sánchez",
