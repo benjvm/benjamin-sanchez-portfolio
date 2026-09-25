@@ -112,7 +112,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang={getStoredLanguage()} data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
-        <link rel="preload" href="/assets/theme-reveal.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/assets/theme-reveal-v2.svg" as="image" type="image/svg+xml" />
         <HeadContent />
       </head>
       <body>

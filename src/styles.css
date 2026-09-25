@@ -288,9 +288,9 @@
 }
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
-@supports (mask-image: url("/assets/theme-reveal.svg")) {
+@supports (mask-image: url("/assets/theme-reveal-v2.svg")) {
   ::view-transition-new(root) {
-    mask: url("/assets/theme-reveal.svg") top left / 0px 0px no-repeat;
+    mask: url("/assets/theme-reveal-v2.svg") top left / 0px 0px no-repeat;
     mask-mode: alpha;
     animation: theme-polygon-reveal 1.5s var(--expo-out) both;
   }
