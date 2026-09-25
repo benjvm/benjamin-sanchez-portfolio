@@ -260,6 +260,19 @@
 [data-theme="light"] .theme-is-dark { display: none; }
 [data-theme="light"] .theme-is-light { display: inline-flex; }
 
+.mobile-language-switcher {
+  width: 100%;
+  justify-content: center;
+  gap: .75rem;
+}
+.mobile-language-switcher button {
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  letter-spacing: .08em;
+}
+
 /* polygon-gradient, adapted from https://theme-toggle.rdsx.dev/animations.txt.
    Only the new snapshot is masked; the old theme stays fully opaque beneath it. */
 :root { --expo-out: cubic-bezier(.16, 1, .3, 1); }

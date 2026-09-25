@@ -230,17 +230,20 @@ function Portfolio() {
               </a>
             </Button>
           </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
-            aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </Button>
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="h-11 w-11"
+              aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? <X /> : <Menu />}
+            </Button>
+          </div>
         </nav>
         {menuOpen && (
           <div className="border-t border-border bg-background px-5 py-6 lg:hidden">
@@ -255,9 +258,8 @@ function Portfolio() {
                 {t(`nav.${item.key}`)}
               </a>
             ))}
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-              <ThemeToggle />
-              <LanguageSwitcher />
+            <div className="mt-6 flex flex-col items-center gap-4">
+              <LanguageSwitcher className="mobile-language-switcher" />
               <Button asChild variant="signal" className="w-full">
                 <a href={cvPdf} download target="_blank" rel="noreferrer">
                   <Download />
@@ -301,7 +303,12 @@ function Portfolio() {
             <p className="max-w-xl text-lg leading-8 text-muted-foreground md:text-xl">
               {t("hero.tagline")}
             </p>
-            <Button asChild variant="signal" size="lg">
+            <Button
+              asChild
+              variant="signal"
+              size="lg"
+              className={menuOpen ? "hidden lg:inline-flex" : undefined}
+            >
               <a href={cvPdf} download target="_blank" rel="noreferrer">
                 <Download />
                 {t("nav.downloadCv")}
