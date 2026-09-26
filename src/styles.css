@@ -149,8 +149,8 @@
 .status-dot { display: inline-block; width: .45rem; height: .45rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 12px color-mix(in oklab, var(--signal) 72%, transparent); animation: status-pulse 2s ease-in-out infinite; }
 
 .node { position: absolute; width: .5rem; height: .5rem; border: 1px solid var(--signal); transform: rotate(45deg); box-shadow: 0 0 20px color-mix(in oklab, var(--signal) 45%, transparent); }
-.node-a { left: 12%; top: 29%; }
-.node-b { right: 14%; top: 22%; animation: node-float 5s ease-in-out infinite; }
+.node-a { left: 12%; top: 22%; }
+.node-b { right: 14%; top: 18%; animation: node-float 5s ease-in-out infinite; }
 .node-c { right: 28%; bottom: 20%; animation: node-float 7s ease-in-out -2s infinite; }
 .node-d { left: 35%; bottom: 13%; }
 .chain-line { position: absolute; height: 1px; transform-origin: left; background: linear-gradient(90deg, transparent, var(--signal), transparent); opacity: .3; }
