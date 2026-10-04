@@ -14,6 +14,7 @@ import { en, es, getStoredLanguage } from "@/i18n";
 import appCss from "../styles.css?url";
 import { themeBootstrap } from "@/lib/theme";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Analytics } from "@vercel/analytics/react";
 
 function NotFoundComponent() {
   const { notFound } = getStoredLanguage() === "es" ? es : en;
@@ -117,6 +118,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <Analytics />
         <Scripts />
       </body>
     </html>
