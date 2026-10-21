@@ -643,7 +643,7 @@ function Socials({ className = "" }: { className?: string }) {
           <a
             key={key}
             href={href}
-            target="_blank"
+            target={key === "linkedin" ? "_self" : "_blank"}
             rel="noreferrer"
             aria-label={label}
             title={label}

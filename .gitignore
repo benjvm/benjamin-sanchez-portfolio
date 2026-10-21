@@ -19,6 +19,15 @@ dist-ssr
 .env.*
 !.env.example
 
+# Local AI tools and project context
+.agents/
+.codex/
+.impeccable/
+.lovable/
+.opencode/
+/[Aa][Gg][Ee][Nn][Tt][Ss].md
+/[Pp][Rr][Oo][Dd][Uu][Cc][Tt].md
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
